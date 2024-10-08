@@ -1,0 +1,13 @@
+{
+    "custom_trains": {
+      	"k9kaTest": {
+        	"name": "k9kaTest",
+        	"base_type": "train_12_2",
+			"has_gangway_connection": false,
+        	"color": "2AF0AD",
+        	"script_files": [ "mtr:k9ka/script/body.js", "mtr:k9ka/script/doors.js", "mtr:k9ka/script/wheels.js", "mtr:k9ka/script/electric_display.js", "mtr:k9ka/script/wipers.js", "mtr:k9ka/script/sounds.js" ],
+			"old": [],
+			"rider_offset":-0.540853
+    	}
+    }
+}

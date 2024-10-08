@@ -1,0 +1,29 @@
+{
+    "k9ka.run": {
+        "sounds": [
+            {
+                "name": "mtr:k9ka/run0",
+                "pitch": 1
+            }
+        ],
+        "subtitle":"K9KA: 运转"
+    },
+    "k9ka.door.open": {
+        "sounds": [
+            {
+                "name": "mtr:k9ka/door_open",
+                "pitch": 1
+            }
+        ],
+        "subtitle":"K9KA: 门打开"
+    },
+    "k9ka.door.close": {
+        "sounds": [
+            {
+                "name": "mtr:k9ka/door_open",
+                "pitch": 1
+            }
+        ],
+        "subtitle":"K9KA: 门关闭"
+    }
+}
