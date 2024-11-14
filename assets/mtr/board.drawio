@@ -1,0 +1,381 @@
+<mxfile host="65bd71144e">
+    <diagram id="olKG4P7bjuLsw58ngTQ3" name="第 1 页">
+        <mxGraphModel dx="1830" dy="1707" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="4" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Lucida Console;" parent="1" source="2" target="3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="&lt;font face=&quot;Lucida Console&quot;&gt;初始定义&lt;/font&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;" parent="1" vertex="1">
+                    <mxGeometry y="-800" width="170" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="初始常量定义&lt;br&gt;(BoardsPixel,模型等）" style="rounded=0;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;fontFamily=Lucida Console;" parent="1" vertex="1">
+                    <mxGeometry x="-5" y="-650" width="180" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Lucida Console;" parent="1" source="5" target="7" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="Create函数" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;rounded=0;fontFamily=Lucida Console;" parent="1" vertex="1">
+                    <mxGeometry x="310" y="-770" width="100" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;fontFamily=Lucida Console;fontSize=10;" parent="1" source="6" target="12" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="Render函数" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;rounded=0;fontFamily=Lucida Console;" parent="1" vertex="1">
+                    <mxGeometry x="510" y="-770" width="100" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Lucida Console;" parent="1" source="7" target="9" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="设定基础运行频率&lt;br&gt;state.clock" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;fontFamily=Lucida Console;" parent="1" vertex="1">
+                    <mxGeometry x="300" y="-665" width="120" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="47" value="" style="edgeStyle=none;rounded=1;jumpStyle=arc;html=1;strokeColor=default;fontFamily=Tahoma;fontSize=8;" parent="1" source="8" target="46" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="&lt;span style=&quot;font-size: 8px;&quot;&gt;&lt;i style=&quot;&quot;&gt;&lt;font face=&quot;JetBrains Mono&quot;&gt;getRoute()获取新线路信息&lt;br&gt;并存储至state.route&lt;br&gt;&lt;/font&gt;&lt;/i&gt;&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;fontFamily=Lucida Console;" parent="1" vertex="1">
+                    <mxGeometry x="690" y="-420" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Lucida Console;" parent="1" source="9" target="13" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="复制常量RawModel至state" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;fontFamily=Lucida Console;" parent="1" vertex="1">
+                    <mxGeometry x="300" y="-540" width="120" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;fontFamily=Lucida Console;fontSize=10;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;rounded=1;" parent="1" source="12" target="21" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="750" y="-580" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="750" y="-637"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="20" value="True" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontFamily=Lucida Console;labelBackgroundColor=none;" parent="18" vertex="1" connectable="0">
+                    <mxGeometry x="-0.6924" y="4" relative="1" as="geometry">
+                        <mxPoint x="31" y="-2" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="28" value="false" style="edgeStyle=none;rounded=0;html=1;strokeColor=default;fontFamily=Lucida Console;fontSize=8;" parent="1" source="12" target="27" edge="1">
+                    <mxGeometry x="-0.0435" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="12" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;是否应该更新？&lt;br&gt;(state.clock)&lt;/font&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;rounded=0;fontFamily=Lucida Console;" parent="1" vertex="1">
+                    <mxGeometry x="500" y="-673.75" width="120" height="72.5" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="获取初始线路&lt;br&gt;使线路无论如何都不为空&lt;br&gt;并上传RawModel至DynamicModelHolder&lt;br&gt;确保获取模型时不为空" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;fontFamily=Lucida Console;" parent="1" vertex="1">
+                    <mxGeometry x="285" y="-420" width="150" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" value="" style="edgeStyle=none;rounded=0;html=1;strokeColor=default;fontFamily=Lucida Console;fontSize=8;" parent="1" source="21" target="8" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="33" value="False" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=8;fontFamily=Lucida Console;" parent="30" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2013" y="1" relative="1" as="geometry">
+                        <mxPoint x="12" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="40" value="True" style="edgeStyle=none;rounded=1;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeColor=default;fontFamily=Lucida Console;fontSize=8;jumpStyle=arc;" parent="1" source="21" target="27" edge="1">
+                    <mxGeometry x="-0.7665" y="-7" relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="660" y="-544"/>
+                            <mxPoint x="660" y="-520"/>
+                            <mxPoint x="660" y="-485"/>
+                        </Array>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="21" value="&lt;font style=&quot;font-size: 8px;&quot;&gt;线路是否与目前所有一致&lt;/font&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;rounded=0;fontFamily=Lucida Console;" parent="1" vertex="1">
+                    <mxGeometry x="690" y="-580" width="120" height="72.5" as="geometry"/>
+                </mxCell>
+                <mxCell id="99" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="27" target="97" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="&lt;strike&gt;获取上传模型&lt;/strike&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Lucida Console;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="500" y="-515" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="29" value="False" style="edgeStyle=none;rounded=0;html=1;strokeColor=default;fontFamily=Lucida Console;fontSize=8;" parent="1" source="12" target="27" edge="1">
+                    <mxGeometry x="-0.0435" relative="1" as="geometry">
+                        <mxPoint x="560" y="-601.25" as="sourcePoint"/>
+                        <mxPoint x="560" y="-515" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="560" y="-560"/>
+                        </Array>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="31" value="绘制模型" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Lucida Console;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="500" y="140" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="49" value="" style="edgeStyle=none;rounded=1;jumpStyle=arc;html=1;strokeColor=default;fontFamily=Tahoma;fontSize=8;" parent="1" source="46" target="48" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="53" value="" style="edgeStyle=none;rounded=1;jumpStyle=arc;html=1;strokeColor=default;fontFamily=Tahoma;fontSize=8;" parent="1" source="46" target="52" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="46" value="&lt;font style=&quot;font-size: 8px;&quot;&gt;线路起点终点站所占像素&lt;br&gt;是否超过可显示像素&lt;br&gt;（boardsPixel)&lt;br&gt;&lt;/font&gt;" style="rhombus;whiteSpace=wrap;html=1;fontFamily=Lucida Console;rounded=0;arcSize=14;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="660" y="-290" width="180" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="88" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="48" target="79" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1010" y="103"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="48" value="&lt;font face=&quot;Cascadia Code&quot;&gt;shouldScroll=true&lt;/font&gt;" style="whiteSpace=wrap;html=1;fontFamily=Lucida Console;rounded=1;arcSize=14;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="950" y="-275" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="50" value="True" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=8;fontFamily=Tahoma;" parent="1" vertex="1">
+                    <mxGeometry x="870" y="-260" width="40" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="80" value="" style="edgeStyle=none;html=1;" parent="1" source="52" target="79" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="52" value="&lt;font face=&quot;Cascadia Code&quot;&gt;shouldScroll=false&lt;br&gt;计算每个字所用像素&lt;br&gt;以及所需drawString的位置&lt;br&gt;此功能类似于Word中的分散对齐&lt;font style=&quot;font-size: 12px;&quot;&gt;&lt;sup style=&quot;&quot;&gt;[1]&lt;/sup&gt;&lt;/font&gt;&lt;br&gt;&lt;/font&gt;" style="whiteSpace=wrap;html=1;fontFamily=Lucida Console;rounded=1;arcSize=14;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="650" y="-105" width="200" height="85" as="geometry"/>
+                </mxCell>
+                <mxCell id="54" value="[1]分散对齐的实现如图" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="827" y="1169" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="55" value="" style="endArrow=none;html=1;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="880" y="1240" as="sourcePoint"/>
+                        <mxPoint x="1182" y="1240" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="56" value="" style="endArrow=none;html=1;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="880" y="1240" as="sourcePoint"/>
+                        <mxPoint x="880" y="1200" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="57" value="&lt;font style=&quot;font-size: 36px;&quot;&gt;南&amp;nbsp; &amp;nbsp;田&amp;nbsp; &amp;nbsp;路&amp;nbsp; &amp;nbsp;总&amp;nbsp; &amp;nbsp;站&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="880" y="1190" width="320" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="58" value="" style="endArrow=none;html=1;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="920" y="1240" as="sourcePoint"/>
+                        <mxPoint x="920" y="1200" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="59" value="" style="endArrow=none;html=1;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="949.91" y="1240" as="sourcePoint"/>
+                        <mxPoint x="949.91" y="1200" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="60" value="" style="endArrow=none;html=1;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="981.9999999999999" y="1240" as="sourcePoint"/>
+                        <mxPoint x="981.9999999999999" y="1200" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="61" value="" style="endArrow=none;html=1;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1014" y="1240" as="sourcePoint"/>
+                        <mxPoint x="1014" y="1200" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="62" value="" style="endArrow=none;html=1;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1050" y="1240" as="sourcePoint"/>
+                        <mxPoint x="1050" y="1200" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="63" value="" style="endArrow=none;html=1;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1080" y="1240" as="sourcePoint"/>
+                        <mxPoint x="1080" y="1200" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="64" value="" style="endArrow=none;html=1;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1116" y="1240" as="sourcePoint"/>
+                        <mxPoint x="1116" y="1200" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="65" value="" style="endArrow=none;html=1;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1146" y="1240" as="sourcePoint"/>
+                        <mxPoint x="1146" y="1200" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="66" value="" style="endArrow=none;html=1;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1182" y="1240" as="sourcePoint"/>
+                        <mxPoint x="1182" y="1200" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="70" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;T1&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;K1&amp;nbsp; &amp;nbsp; T2&amp;nbsp; &amp;nbsp; &amp;nbsp; K2&amp;nbsp; &amp;nbsp; &amp;nbsp;T3&amp;nbsp; &amp;nbsp; &amp;nbsp; K3&amp;nbsp; &amp;nbsp; &amp;nbsp; T4&amp;nbsp; &amp;nbsp; &amp;nbsp; K4&amp;nbsp; &amp;nbsp; &amp;nbsp;T5&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=36;" parent="1" vertex="1">
+                    <mxGeometry x="890" y="1210" width="300" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="71" value="已知a = T1+K1+T2+K2+T3+K3+T4+K4+T5&lt;br&gt;b = T1+T2+T3+T4+T5&lt;br&gt;c = a - b(K1+K2+K3+K4)&lt;br&gt;目标：使每个字的间隔一致&lt;br&gt;所以α=K1=K2=K3=K4&lt;br&gt;P&lt;sub&gt;T1&lt;/sub&gt;=0+0*α&lt;br&gt;P&lt;sub style=&quot;border-color: var(--border-color);&quot;&gt;T1&lt;/sub&gt;=T1+1*α&lt;br&gt;P&lt;sub style=&quot;border-color: var(--border-color);&quot;&gt;T3&lt;/sub&gt;=T1+T2+2*α" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="840" y="1270" width="250" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="72" value="&lt;font style=&quot;font-size: 6px;&quot;&gt;P&lt;sub style=&quot;&quot;&gt;T1&lt;/sub&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="865" y="1178" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="73" value="&lt;font style=&quot;font-size: 6px;&quot;&gt;P&lt;sub style=&quot;&quot;&gt;T2&lt;/sub&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="935" y="1178" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="74" value="&lt;font style=&quot;font-size: 6px;&quot;&gt;P&lt;sub style=&quot;&quot;&gt;T3&lt;/sub&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="1000" y="1178" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="75" value="&lt;font style=&quot;font-size: 6px;&quot;&gt;P&lt;sub style=&quot;&quot;&gt;T4&lt;/sub&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="1060" y="1178" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="76" value="&lt;font style=&quot;font-size: 6px;&quot;&gt;P&lt;sub style=&quot;&quot;&gt;T5&lt;/sub&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="1130" y="1178" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="91" value="" style="edgeStyle=none;html=1;" parent="1" source="79" target="89" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="79" value="新建GraphicsTexture" style="whiteSpace=wrap;html=1;fontFamily=Lucida Console;rounded=1;arcSize=14;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="690" y="72.5" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="110" style="edgeStyle=none;html=1;exitX=0.25;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontSize=14;rounded=0;" parent="1" source="83" target="97" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="700" y="280"/>
+                            <mxPoint x="680" y="280"/>
+                            <mxPoint x="680" y="25"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="83" value="修改UV(boardsPixel/Graphics宽度)" style="whiteSpace=wrap;html=1;fontFamily=Lucida Console;rounded=1;arcSize=14;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="650" y="320" width="200" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="92" value="" style="edgeStyle=none;html=1;" parent="1" source="89" target="83" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="89" value="替换贴图" style="whiteSpace=wrap;html=1;fontFamily=Lucida Console;rounded=1;arcSize=14;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="690" y="180" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="95" value="" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="97" target="31" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="560" y="360" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="107" value="False" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=14;" parent="95" vertex="1" connectable="0">
+                    <mxGeometry x="-0.5373" y="1" relative="1" as="geometry">
+                        <mxPoint x="-1" y="17" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="101" value="" style="edgeStyle=none;html=1;fontSize=14;" parent="1" source="97" target="100" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="106" value="True" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=14;" parent="101" vertex="1" connectable="0">
+                    <mxGeometry x="-0.13" y="-1" relative="1" as="geometry">
+                        <mxPoint x="-12" y="1" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="97" value="&lt;font style=&quot;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot; face=&quot;Cascadia Code&quot;&gt;shouldScroll?&lt;/font&gt;&lt;br&gt;&lt;/font&gt;" style="rhombus;whiteSpace=wrap;html=1;fontFamily=Lucida Console;rounded=0;arcSize=14;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="470" y="-20" width="180" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="102" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=14;" parent="1" source="100" target="31" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="300" y="170"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="100" value="更新UV" style="whiteSpace=wrap;html=1;fontFamily=Lucida Console;rounded=1;arcSize=14;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="240" y="-5" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="113" value="" style="endArrow=none;html=1;entryX=1;entryY=1;entryDx=0;entryDy=0;exitX=0;exitY=1;exitDx=0;exitDy=0;" parent="1" source="115" target="115" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="880" y="1530" as="sourcePoint"/>
+                        <mxPoint x="1060" y="1530" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="119" value="&lt;font style=&quot;font-size: 6px;&quot;&gt;TextWidth&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=18;labelBackgroundColor=none;" parent="113" vertex="1" connectable="0">
+                    <mxGeometry x="-0.0982" y="-1" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="115" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;南田路总站(南田西站)&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="880" y="1500" width="176" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="122" value="" style="endArrow=none;html=1;fontSize=6;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="880" y="1550" as="sourcePoint"/>
+                        <mxPoint x="1100" y="1550" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="123" value="Width" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=6;" parent="122" vertex="1" connectable="0">
+                    <mxGeometry x="-0.0885" relative="1" as="geometry">
+                        <mxPoint x="2" y="4" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="124" value="" style="endArrow=none;html=1;fontSize=6;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="880" y="1570" as="sourcePoint"/>
+                        <mxPoint x="970" y="1570" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="126" value="BoardPixel" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=6;" parent="124" vertex="1" connectable="0">
+                    <mxGeometry x="-0.1032" relative="1" as="geometry">
+                        <mxPoint y="5" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="127" value="(0,0) (1,0)&lt;br&gt;(0,1) (1,1)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;labelBackgroundColor=none;fontSize=6;" parent="1" vertex="1">
+                    <mxGeometry x="890" y="1546" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="128" value="&lt;div style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;(1,0) (0,0) (0,1) (1,0)&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;UV排列顺序&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;fontSize=6;" parent="1" vertex="1">
+                    <mxGeometry x="1056" y="1625" width="60" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="129" value="(1,0)&amp;nbsp; = (BoardPixel/Width,0)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;labelBackgroundColor=none;fontSize=6;" parent="1" vertex="1">
+                    <mxGeometry x="875" y="1595" width="85" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="131" value="每次滚动1像素&lt;br&gt;1/Width" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;labelBackgroundColor=none;fontSize=6;" parent="1" vertex="1">
+                    <mxGeometry x="980" y="1576" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="132" value="" style="endArrow=none;html=1;fontSize=6;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="960" y="1720" as="sourcePoint"/>
+                        <mxPoint x="1000" y="1720" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="133" value="" style="endArrow=none;html=1;fontSize=6;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="960" y="1680" as="sourcePoint"/>
+                        <mxPoint x="1000" y="1680" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="134" value="" style="endArrow=classic;startArrow=classic;html=1;fontSize=6;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1014.83" y="1720" as="sourcePoint"/>
+                        <mxPoint x="1014.83" y="1680" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="135" value="24" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=6;" parent="1" vertex="1">
+                    <mxGeometry x="995" y="1690" width="30" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="136" value="" style="endArrow=none;html=1;fontSize=6;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="960" y="1710" as="sourcePoint"/>
+                        <mxPoint x="980" y="1710" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="137" value="" style="endArrow=none;html=1;fontSize=6;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="960" y="1710" as="sourcePoint"/>
+                        <mxPoint x="980" y="1710" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="138" value="字体基线" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=6;" parent="137" vertex="1" connectable="0">
+                    <mxGeometry x="-0.6476" y="-1" relative="1" as="geometry">
+                        <mxPoint x="-24" y="-1" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="139" value="" style="endArrow=none;html=1;fontSize=6;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="960" y="1700" as="sourcePoint"/>
+                        <mxPoint x="980" y="1700" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

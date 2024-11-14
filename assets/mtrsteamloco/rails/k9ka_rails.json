@@ -1,0 +1,26 @@
+{
+    "turn_left": {
+        "name": "turn_left",
+        "model": "mtrsteamloco:rails/empty.obj"
+    },
+    "turn_right": {
+        "name": "turn_right",
+        "model": "mtrsteamloco:rails/empty.obj"
+    },
+    "go_straight": {
+        "name": "go_straight",
+        "model": "mtrsteamloco:rails/empty.obj"
+    },
+    "rainy":{
+        "name": "rainy",
+        "model": "mtrsteamloco:rails/empty.obj"
+    },
+    "no_rainy":{
+        "name": "no_rainy",
+        "model": "mtrsteamloco:rails/empty.obj"
+    },
+    "double_flash":{
+        "name": "double_flash",
+        "model": "mtrsteamloco:rails/empty.obj"
+    }
+}

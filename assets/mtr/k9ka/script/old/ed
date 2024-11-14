@@ -1,0 +1,202 @@
+	/*
+	let rawValue = train.getRailProgress(train.isReversed()? train.trainCars()-carIndex: carIndex) + (train.isReversed()? -1: 1) * targetAdvance;
+	let railIndex = train.getRailIndex(rawValue,false);
+	let pathDatas = train.path();
+	let pathData = pathDatas[railIndex];
+	let rail = pathData.rail;
+	let lengths = getLengths(pathDatas);
+	let railValue = rawValue - (railIndex>0? lengths[railIndex-1]: 0);
+	let vec3 = rail.getPosition(railValue);
+	let str = vec3.toString();
+	let cleanStr = str.slice(1, -1);
+	let coords = cleanStr.split(',');
+	let x = parseFloat(coords[0].trim());
+	let y = parseFloat(coords[1].trim());
+	let z = parseFloat(coords[2].trim());	
+	let targetPosition = new Vector3f(x, y, z);
+	let wheelPosition = getWorldPosition(new Vector3f(0, 0, anteriorWheelPos.z), train.lastCarPosition[carIndex], train.lastCarRotation[carIndex]);
+	let vector = wheelPosition.copy();
+	vector.sub(targetPosition);
+	let rawRadius = Math.atan2(vector.x(), vector.z())+Math.PI;
+	let radian =  rawRadius - train.lastCarRotation[carIndex].y();
+	return radian;*/
+
+
+
+//114514
+
+
+
+    state.qBoard = new Board({PandR:[{position:{y:1.35963,z:6.14457}}]});//,{position:{y:1.3345,z:-5.86401}}
+    
+    state.sqr = new ScrollsScreen({modelInfo:{position:{x:sqSizeX*0.5+sqMSizeX/2},size:{x:sqSizeX,y:sqSizeX},renderType:"light"},graphicsInfo:{x:state.originName*32 + 70,y:texY}});
+    let g = state.sqr.graphics();
+    g.setColor(colorA);
+    g.fillRect(0, 0, state.originName*32 + 70, texY);
+    g.setColor(colorC);
+    g.setFont(font.deriveFont(Font.BOLD, 32));
+    g.drawString(state.originName, 0, 26);
+    state.sqr.upload();
+
+    state.sqrg = new Face({modelInfo:{renderType:"exteriortranslucent",textureSize:{x:20,y:20}},screen:state.sqr});
+    drawGrid(state.sqrg);
+
+    state.sql = new ScrollsScreen({modelInfo:{position:{x:sqSizeX*0.5-sqMSizeX/2},size:{x:sqSizeX,y:sqSizeX},renderType:"light"},graphicsInfo:{x:state.destinationName*32 + 70,y:texY}});
+    g = state.sql.graphics();
+    g.setColor(colorA);
+    g.fillRect(0, 0, state.destinationName*32 + 70, texY);
+    g.setColor(colorC);
+    g.setFont(font.deriveFont(Font.BOLD, 32));
+    g.drawString(state.destinationName, 0, 26);
+    state.sql.upload();
+
+    state.sqlg = new Face({modelInfo:{renderType:"exteriortranslucent",textureSize:{x:20,y:20}},screen:state.sql});
+    drawGrid(state.sqlg);
+
+    
+    state.sqm = new ScrollsScreen({modelInfo:{size:{x:sqSizeX,y:sqSizeY},renderType:"light"},graphicsInfo:{x:state.routeName*32 + 70,y:texY}});
+    g.setColor(colorA);
+    g.fillRect(0, 0, state.routeName*32 + 70, texY);
+    g.setColor(colorB);
+    g.setFont(font.deriveFont(Font.BOLD, 32));
+    g.drawString(state.routeName, 0, 26);
+    state.sqm.upload();
+
+    state.sqmg = new Face({modelInfo:{renderType:"exteriortranslucent",textureSize:{x:20,y:20}},screen:state.sqm});
+    drawGrid(state.sqmg);
+
+    state.qBoard.addMap("a")
+    .addLayer().pushItem(state.sqr).pushItem(state.sql).pushItem(state.sqm)
+    .addLayer().pushItem(state.sqrg).pushItem(state.sqlg).pushItem(state.sqmg);
+
+    
+    state.hBoard = new Board({PandR:[{position:{y:1.3345,z:-5.86401},rotation:{y:Math.PI}}]});
+
+    state.shr = new ScrollsScreen({modelInfo:{position:{x:shSizeX*0.5+shMSizeX/2},size:{x:shSizeX,y:shSizeX},renderType:"light"},graphicsInfo:{x:state.originName*32 + 70,y:32}});
+    g = state.shr.graphics();
+    g.setColor(colorA);
+    g.fillRect(0, 0, state.originName*32 + 70, 32);
+    g.setColor(colorC);
+    g.setFont(font.deriveFont(Font.BOLD, 32));
+    g.drawString(state.originName, 0, 26);
+    state.shr.upload();
+
+    state.shrg = new Face({modelInfo:{renderType:"exteriortranslucent",textureSize:{x:20,y:20}},screen:state.shr});
+    drawGrid(state.shrg);
+
+    state.shl = new ScrollsScreen({modelInfo:{position:{x:shSizeX*0.5-shMSizeX/2},size:{x:shSizeX,y:shSizeX},renderType:"light"},graphicsInfo:{x:state.destinationName*32 + 70,y:64}});
+    g = state.shl.graphics();
+    g.setColor(colorA);
+    g.fillRect(0, 0, state.destinationName*32 + 70, 64);
+    g.setColor(colorC);
+    g.setFont(font.deriveFont(Font.BOLD, 32));
+    g.drawString(state.destinationName, 0, 26);
+    state.shl.upload();
+
+    state.shlg = new Face({modelInfo:{renderType:"exteriortranslucent",textureSize:{x:20,y:20}},screen:state.shl});
+    drawGrid(state.shlg);
+
+    state.shm = new ScrollsScreen({modelInfo:{size:{x:shSizeX,y:shSizeY},renderType:"light"},graphicsInfo:{x:state.routeName*32 + 70,y:32}});
+
+    state.hBoard.addMap("a")
+    .addLayer().pushItem(state.shr).pushItem(state.shl).pushItem(state.shm)
+    .addLayer().pushItem(state.shrg).pushItem(state.shlg).pushItem(state.shm);
+
+    state.boards = new Map();
+    state.boards.set("qBoard",state.qBoard);
+    state.boards.set("hBoard",state.hBoard);
+
+
+//
+let rawValue = train.getRailProgress(train.isReversed()? train.trainCars()-0: 0) + (train.isReversed()? -1: 1) * targetAdvance;
+let railIndex = train.getRailIndex(rawValue,false);
+let pathDatas = train.path();
+let pathData = pathDatas[railIndex];
+let rail = pathData.rail;
+let lengths = getLengths(pathDatas);
+let railValue = rawValue - (railIndex>0? lengths[railIndex-1]: 0);
+let targetPosition = new Vector3f(rail.getPosition(railValue));
+let wheelPosition = getWorldPosition(new Vector3f(0, 0, anteriorWheelPos.z), train.lastCarPosition[0], train.lastCarRotation[0]);
+let vector = wheelPosition.copy();
+vector.sub(targetPosition);
+let rawRadius = Math.atan2(vector.x(), vector.z())+Math.PI;
+let radian =  rawRadius - train.lastCarRotation[0].y();
+
+//ctx.setDebugInfo("atan2",Math.atan2(vector.z(), vector.x())+","+vector.z()+","+vector.x())
+ctx.setDebugInfo("rrr",rawRadius+","+radian+","+train.lastCarRotation[0].y())
+//ctx.setDebugInfo("pW",Vector3ftoSrting(wheelPosition))
+//ctx.setDebugInfo("pT",Vector3ftoSrting(targetPosition))
+//ctx.setDebugInfo("vector",Vector3ftoSrting(vector))
+
+matrices = new Matrices();
+matrices.last().multiply(getTrainMatrix(wheelPosition, train.lastCarPosition[0], train.lastCarRotation[0]))
+ctx.drawCarModel(cube1,0,matrices);
+matrices = new Matrices();
+matrices.last().multiply(getTrainMatrix(targetPosition, train.lastCarPosition[0], train.lastCarRotation[0]))
+ctx.drawCarModel(cube2,0,matrices);
+
+function alterAllRenderType(model, type){
+    let vertarray = model.uploadedTranslucentParts.meshList;
+    let vert = vertarray[0];
+    for(let j = 0; j < 2; j++){
+        vertarray = j?model.uploadedOpaqueParts.meshList:model.uploadedTranslucentParts.meshList;
+        for(let i = 0; i < vertarray.length; i++) {
+            vert = vertarray[i];
+            switchType(vert.materialProp,type);
+        }
+    }
+}
+
+function switchType(materialProp,type){
+    switch (type) {
+        case "exterior":
+            materialProp.shaderName = "rendertype_entity_cutout";
+            break;
+        case "exteriortranslucent":
+            materialProp.shaderName = "rendertype_entity_translucent_cull";
+            materialProp.translucent = true;
+            break;
+        case "interior":
+            materialProp.shaderName = "rendertype_entity_cutout";
+            materialProp.attrState.setLightmapUV(15 << 4 | 15 << 20);
+            break;
+        case "interiortranslucent":
+            materialProp.shaderName = "rendertype_entity_translucent_cull";
+            materialProp.translucent = true;
+            materialProp.attrState.setLightmapUV(15 << 4 | 15 << 20);
+            break;
+        case "light":
+            materialProp.shaderName = "rendertype_beacon_beam";
+            materialProp.cutoutHack = true;
+            break;
+        case "lighttranslucent":
+            materialProp.shaderName = "rendertype_beacon_beam";
+            materialProp.translucent = true;
+            materialProp.writeDepthBuf = false;
+            break;
+    }
+}
+
+/*
+ModelCluster.prototype.alterAllRenderType = function (type){
+    let vertarray = this.uploadedTranslucentParts.meshList;
+    let vert = vertarray[0];
+    for(let j = 0; j < 2; j++){
+        vertarray = j?this.uploadedOpaqueParts.meshList:this.uploadedTranslucentParts.meshList;
+        for(let i = 0; i < vertarray.length; i++) {
+            vert = vertarray[i];
+            switchType(vert.materialProp,type);
+        }
+    }
+}*/
+
+/*
+function getModelKey1(train) {
+    let railProgress = train.railProgress();
+    let currentRailIndex = train.getRailIndex(railProgress, true);
+    if (currentRailIndex >= 0 && currentRailIndex < train.path().size()) {
+        let currentPathData = train.path().get(currentRailIndex);
+        let trackModelKey = currentPathData.rail//.getModelKey();
+        return trackModelKey;
+    }
+}*/
