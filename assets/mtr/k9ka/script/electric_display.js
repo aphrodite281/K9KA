@@ -235,7 +235,7 @@ function render(ctx, state, train) {
 			{
 				let number = state.route.number;
 				let g = state.Image.get("side").graphics;
-				let Width = 60;
+				let Width = 50;
 				let fontSize = textTools.getFontMaxSize(
 					font.get("MSYH"),
 					48,
@@ -273,7 +273,7 @@ function render(ctx, state, train) {
 								font.get("MSYH").deriveFont(fontSize - 15),
 								number[0]
 							),
-							Width + 10
+							70
 						),
 						32
 					);
@@ -281,7 +281,7 @@ function render(ctx, state, train) {
 					for (let i = 0; i < number.length; i++) {
 						g.drawString(
 							number[i],
-							charPosition[i] + textTools.centerText(textWidth, Width + 10),
+							charPosition[i] + textTools.centerText(textWidth, 70),
 							20 + yPosition
 						);
 					}

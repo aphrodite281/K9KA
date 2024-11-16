@@ -1,3 +1,6 @@
+importPackage(java.awt);
+importPackage(java.awt.geom);
+importPackage(java.awt.image);
 function inBrake(state, train) {
 	if (isBraking(state, train)) {
 		state.brakeTime = Timing.elapsed() + 0.2;
@@ -16,15 +19,6 @@ function isBraking(state, train) {
 		state.speed = train.speed();
 		return true;
 	}
-}
-function getLength(String) {
-	let length = 0;
-	let regex = /^[0-9A-Za-z!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~ ]+$/;
-	for (let i = 0; i < String.length; i++) {
-		if (regex.test(String[i])) length += 0.5;
-		else length += 1;
-	}
-	return length;
 }
 /**
  * 与train对象合并线路信息
@@ -51,11 +45,13 @@ function getRoute(train) {
 			allStation = []; //定义参数（线路号码，发车站，终点站，下一站）
 		try {
 			for (let i = 0; i < train.getAllPlatforms().size(); i++) {
-				allStation[i] = train.getThisRoutePlatforms()[i].station; //循环获取从第一个站到最后一个站的站名，
+				allStation[i] =
+					TextUtil.getCjkParts(train.getThisRoutePlatforms()[i].station) + ""; //循环获取从第一个站到最后一个站的站名，
 			}
-			nextStation = train.getAllPlatforms()[index].station.name + "";
-			origin = FP.station.name + "";
-			destination = FP.destinationName + ""; //尝试获取各种站名
+			nextStation =
+				TextUtil.getCjkParts(train.getAllPlatforms()[index].station.name) + "";
+			origin = TextUtil.getCjkParts(FP.station.name) + "";
+			destination = TextUtil.getCjkParts(FP.destinationName) + ""; //尝试获取各种站名
 		} catch (e) {
 			//未能成功获取时执行此段(如无法获取所属站)
 			nextStation = "未命名";
@@ -114,19 +110,32 @@ function drawText(g, content, totalWidth, Font, x, y) {
  * @param {train} Train
  */
 function stationInfo(Train, Font) {
-	this.font = Font;
 	this.Info = new Map();
+	this.font = Font;
+	let texture = new GraphicsTexture(100, 100);
+	let g = texture.graphics;
+	let FontMetrics = g.getFontMetrics(this.font);
 	this.AllPlatforms = Train.getAllPlatforms();
 	this.length = Train.getAllPlatforms().size();
 	for (let i = 0; i < this.length; i++) {
-		let Station = this.AllPlatforms[i].station.name;
-		Station != null
-			? this.Info.set(Station, {})
+		this.AllPlatforms[i].station.name != null
+			? this.Info.set(this.AllPlatforms[i].station.name, {
+					page: 0,
+					name: this.AllPlatforms[i].station.name,
+					Xposition: 0,
+					FontSize: 12,
+					bufferedImage: new BufferedImage(1, 1, 1)
+			  })
 			: this.Info.set(i.toString(), {
 					page: 0,
 					name: this.AllPlatforms[i].station.name,
-					Xposition,
-					FontSize
+					Xposition: 0,
+					FontSize: 12
 			  });
+		let Station = this.Info.get(
+			this.AllPlatforms[i].station.name != null
+				? this.AllPlatforms[i].station.name
+				: i.toString()
+		);
 	}
 }
