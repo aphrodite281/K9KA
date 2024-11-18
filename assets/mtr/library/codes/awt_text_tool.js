@@ -10,6 +10,7 @@ const textTools = {
 	 * @returns {int[]} 每个字符所在的最左端位置
 	 */
 	justifiedText: (font, totalPX, content) => {
+		if (content.length == 1) return [0];
 		let FontMetrices = g.getFontMetrics(font);
 		let width = [];
 		let position = [];
@@ -20,9 +21,7 @@ const textTools = {
 			}
 		}
 		let space =
-			content.length == 1
-				? 0
-				: (totalPX - FontMetrices.stringWidth(content)) / (content.length - 1);
+			(totalPX - FontMetrices.stringWidth(content)) / (content.length - 1);
 		for (let i = 0; i < content.length; i++) {
 			let totalwidth = 0;
 			for (let l = 0; l < i; l++) {
@@ -30,11 +29,7 @@ const textTools = {
 			}
 			position[i] = totalwidth + i * space;
 		}
-		return {
-			position: position,
-			totalWidth:
-				FontMetrices.stringWidth(content) + space * (content.length - 1)
-		};
+		return position;
 	},
 	/**
 	 * 计算输入文本的宽度
@@ -70,21 +65,30 @@ const textTools = {
 	 * @param {int} totalPX
 	 * @returns int
 	 */
-	centerText: (width, totalPX) => {
+	centerTextHorizon: (width, totalPX) => {
 		return totalPX / 2 - width / 2;
 	},
-	getFontHeight: (font) => {
+	centerTextVetrical: (font, totalHeight) => {
 		let FontMetrices = g.getFontMetrics(font);
-		return FontMetrices.getHeight();
+		let fontHeight = FontMetrices.getHeight();
+		let space = (totalHeight - fontHeight) / 2;
+		let fontAscent = FontMetrices.getAscent();
+		return space + fontAscent;
 	},
-	getFontCLtoBL: (font) => {
+	verticalText: (font, height, content) => {
+		if (content.length == 1) return [0];
 		let FontMetrices = g.getFontMetrics(font);
-		let height = FontMetrices.getHeight();
-		let ascent = FontMetrices.getAscent();
-		let descent = FontMetrices.getDescent();
-		print("FontHeight", height);
-		print("FontAscent", ascent);
-		print("FontDescent", descent);
-		return height / 2 - descent;
+		let fontHeight = FontMetrices.getHeight();
+		let fontAscent = FontMetrices.getAscent();
+		print("fontHeight", fontHeight);
+		let contentHeight = fontHeight * content.length;
+		let space = (height - contentHeight) / (content.length - 1);
+		let positionY = [];
+		let positionX = [];
+		for (let i = 0; i < content.length; i++) {
+			positionY[i] = (fontHeight + space) * i + fontAscent;
+			positionX[i] = -(1 / 2) * FontMetrices.stringWidth(content[i]);
+		}
+		return [positionX, positionY];
 	}
 };

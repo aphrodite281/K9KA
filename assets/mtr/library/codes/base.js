@@ -20,6 +20,27 @@ function isBraking(state, train) {
 		return true;
 	}
 }
+function isTurning(train) {
+	let PathData = train.path();
+	let railProgress = train.railProgress();
+	let railIndex = train.getRailIndex(railProgress, false);
+	let railType = PathData[railIndex].rail.getModelKey();
+	return (
+		railType == "turn_left" ||
+		railType == "turn_right" ||
+		railType == "double_flash"
+	);
+}
+function turningDirection(train) {
+	let PathData = train.path();
+	let railProgress = train.railProgress();
+	let railIndex = train.getRailIndex(railProgress, false);
+	let railType = PathData[railIndex].rail.getModelKey();
+	if (railType == "turn_left") return "left";
+	if (railType == "turn_right") return "right";
+	if (railType == "go_straight") return "straight";
+	return "both";
+}
 /**
  * 与train对象合并线路信息
  * @param {train} 列车对象
@@ -35,7 +56,16 @@ function getRoute(train) {
 			number: "273",
 			destination: "晓港湾",
 			origin: "广医二院",
-			nextStation: "晓港新村"
+			nextStation: "晓港新村",
+			allStation: [
+				"广医二院",
+				"晓港新村",
+				"东晓南路",
+				"五凤乡",
+				"瑞南新村",
+				"晓港湾",
+				"晓港湾总站"
+			]
 		}; //如果不在正线上返回此值
 	} else {
 		let FP = train.getAllPlatforms()[0]; //First Plaform，获取首个站台信息
@@ -46,7 +76,8 @@ function getRoute(train) {
 		try {
 			for (let i = 0; i < train.getAllPlatforms().size(); i++) {
 				allStation[i] =
-					TextUtil.getCjkParts(train.getThisRoutePlatforms()[i].station) + ""; //循环获取从第一个站到最后一个站的站名，
+					TextUtil.getCjkParts(train.getThisRoutePlatforms()[i].station.name) +
+					""; //循环获取从第一个站到最后一个站的站名，
 			}
 			nextStation =
 				TextUtil.getCjkParts(train.getAllPlatforms()[index].station.name) + "";
@@ -65,7 +96,7 @@ function getRoute(train) {
 				"瑞南新村",
 				"晓港湾",
 				"晓港湾总站"
-			]; //给与默认数据(数据来自于广州公交273路3-2-E042(3-59643)的定班车)
+			]; //给与默认数据(数据来自于广州公交273路3-2-E042(3-59645)的定班车)
 		}
 		let number = "" + FP.route.name; //设置线路号码
 		return { number, destination, origin, nextStation, allStation };

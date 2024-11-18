@@ -40,6 +40,15 @@ const boardsPixel = {
 	},
 	side: [226, 68]
 };
+const boardTranslate = {
+	front: {
+		left: {
+			position: new Vector3f(-0.55, 1.36, 6.07),
+			rotation: new Vector3f(0, 0, 0),
+			scale: new Vector3f(0.62, 0, 24, 0)
+		}
+	}
+};
 const boardsVertices = {
 	front: {
 		left: [
