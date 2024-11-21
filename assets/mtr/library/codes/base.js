@@ -54,10 +54,21 @@ function getRoute(train) {
 	if (index == -1) {
 		return {
 			number: "273",
-			destination: "晓港湾",
-			origin: "广医二院",
+			destination: "晓港湾总站",
+			origin: "迎宾馆",
 			nextStation: "晓港新村",
 			allStation: [
+				"迎宾馆",
+				"解放中路",
+				"解放南路",
+				"堑口",
+				"宝岗大道北",
+				"宝岗大道中",
+				"海珠区妇幼",
+				"江南新村",
+				"江南新村（骨伤科医院）",
+				"江南西路",
+				"华海大厦",
 				"广医二院",
 				"晓港新村",
 				"东晓南路",
@@ -134,39 +145,5 @@ function drawText(g, content, totalWidth, Font, x, y) {
 		let Char = content[i];
 		let charPosition = MaxWidth * (i + 0.5) - CharWidth[i]; //i+0.5，使它刚好在中心位置
 		g.drawString(Char, x + charPosition, y);
-	}
-}
-/**
- *
- * @param {train} Train
- */
-function stationInfo(Train, Font) {
-	this.Info = new Map();
-	this.font = Font;
-	let texture = new GraphicsTexture(100, 100);
-	let g = texture.graphics;
-	let FontMetrics = g.getFontMetrics(this.font);
-	this.AllPlatforms = Train.getAllPlatforms();
-	this.length = Train.getAllPlatforms().size();
-	for (let i = 0; i < this.length; i++) {
-		this.AllPlatforms[i].station.name != null
-			? this.Info.set(this.AllPlatforms[i].station.name, {
-					page: 0,
-					name: this.AllPlatforms[i].station.name,
-					Xposition: 0,
-					FontSize: 12,
-					bufferedImage: new BufferedImage(1, 1, 1)
-			  })
-			: this.Info.set(i.toString(), {
-					page: 0,
-					name: this.AllPlatforms[i].station.name,
-					Xposition: 0,
-					FontSize: 12
-			  });
-		let Station = this.Info.get(
-			this.AllPlatforms[i].station.name != null
-				? this.AllPlatforms[i].station.name
-				: i.toString()
-		);
 	}
 }

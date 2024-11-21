@@ -80,7 +80,6 @@ const textTools = {
 		let FontMetrices = g.getFontMetrics(font);
 		let fontHeight = FontMetrices.getHeight();
 		let fontAscent = FontMetrices.getAscent();
-		print("fontHeight", fontHeight);
 		let contentHeight = fontHeight * content.length;
 		let space = (height - contentHeight) / (content.length - 1);
 		let positionY = [];
@@ -90,5 +89,20 @@ const textTools = {
 			positionX[i] = -(1 / 2) * FontMetrices.stringWidth(content[i]);
 		}
 		return [positionX, positionY];
+	},
+	getTextHeight: (font, content) => {
+		let FontMetrices = g.getFontMetrics(font);
+		let fontHeight = FontMetrices.getHeight();
+		return fontHeight * content.length;
+	},
+	getCharMaxWidth: (font, content) => {
+		let width = 0;
+		let FontMetrices = g.getFontMetrics(font);
+		for (let char of content) {
+			FontMetrices.stringWidth(char) > width
+				? (width = FontMetrices.stringWidth(char))
+				: null;
+		}
+		return width;
 	}
 };

@@ -4,6 +4,7 @@ include("mtr:library/codes/awt_text_tool.js");
 importPackage(java.awt);
 importPackage(java.lang);
 importPackage(java.awt.geom); //导入Java.awt库
+importPackage(java.io);
 
 const boardNames = ["front", "side", "back"];
 //prettier-ignore
@@ -25,7 +26,7 @@ const boardsPixel = {
 		middle: [48, 24],
 		right: [62, 24]
 	},
-	side: [226, 68]
+	side: [226, 72]
 };
 var gridTexture = new GraphicsTexture(16, 16);
 {
@@ -45,7 +46,7 @@ const boardTranslate = {
 	side: {
 		position: new Vector3f(-1.26, 0.25, 3.505),
 		rotation: new Vector3f(0, -90, 0),
-		scale: new Vector3f(1.13, 0.34, 0)
+		scale: new Vector3f(1.13, 0.36, 0)
 	},
 	back: {
 		position: new Vector3f(0, 1.36, -5.86),
@@ -63,7 +64,7 @@ const grid = {
 	front: new RawFace("exterior", boardTranslate.front, gridTexture.identifier,
 		[[172, 0],[0, 0],[0, 24],[172, 24]]).buildFace().uploadModelCluster(),
 	side: new RawFace("exterior", boardTranslate.side, gridTexture.identifier,
-		[[226, 0], [0, 0], [0, 68], [226, 68]]).buildFace().uploadModelCluster(),
+		[[226, 0], [0, 0], [0, 72], [226, 72]]).buildFace().uploadModelCluster(),
 	back: new RawFace("exterior", boardTranslate.back, gridTexture.identifier,
 		[[172, 0], [0, 0], [0, 24], [172, 24]]).buildFace().uploadModelCluster()
 };
@@ -92,6 +93,8 @@ function create(ctx, state, train) {
 		state[board] = baseBoard[board].copy();
 		state[board].uploadModelHolder();
 	}
+	state.PageClock = 0;
+	state.page = 0;
 }
 function render(ctx, state, train) {
 	if (state.rateLimit.shouldUpdate()) {
@@ -100,6 +103,12 @@ function render(ctx, state, train) {
 			let routeDisplayWidth = 62;
 			state.route = getRoute(train);
 			let FontTransform = new AffineTransform();
+			state.stationHelper = new stationInfo(
+				state.route,
+				72,
+				156,
+				font.get("HZK12").deriveFont(16)
+			);
 			FontTransform.scale(0.63, 1);
 			let MSYH = font
 				.get("MSYH")
@@ -113,7 +122,7 @@ function render(ctx, state, train) {
 			state.image = new Map()
 				.set("front", new GraphicsTexture(172, 24))
 				.set("back", new GraphicsTexture(172, 24))
-				.set("side", new GraphicsTexture(226, 68));
+				.set("side", new GraphicsTexture(226, 72));
 			for (let i = 0; i < train.trainCars(); i++) {
 				for (let board of boardNames) {
 					state[board].replaceTexture(
@@ -259,7 +268,6 @@ function render(ctx, state, train) {
 			for (let i = 0; i < number.length; i++) {
 				g.drawString(
 					number[i],
-
 					numberPosition[i] + routeWidth + numberCompensationX,
 					numberCompensationY - 3
 				);
@@ -475,86 +483,88 @@ function render(ctx, state, train) {
 			}
 			state.arrowScrollClock =
 				state.arrowScrollClock == 0
+					? 8
+					: state.arrowScrollClock == 8
 					? 16
 					: state.arrowScrollClock == 16
+					? 24
+					: state.arrowScrollClock == 24
 					? 32
 					: 0;
 			texture.upload();
 		};
-		//var drawSide = () => {
-		let number = state.route.number;
-		let texture = state.image.get("side");
-		let g = texture.graphics;
-		let numberWidth = 70;
-		let routeSize = 16;
-		let lengthCompensation = 70 - number.length * 18;
-		lengthCompensation = lengthCompensation < 6 ? 6 : lengthCompensation;
-		let routeWidth = 226 - numberWidth;
-		let numberSize = textTools.getFontMaxSize(
-			font.get("MSYH"),
-			24,
-			number,
-			numberWidth - 10
-		);
-		let numberPosition = textTools.justifiedText(
-			font.get("MSYH").deriveFont(numberSize),
-			numberWidth - lengthCompensation,
-			number
-		);
-		let numberCompensationX = textTools.centerTextHorizon(
-			number.length != 1
-				? numberWidth - lengthCompensation
-				: textTools.getTextWidth(
-						font.get("MSYH").deriveFont(numberSize),
-						number
-				  ),
-			numberWidth
-		);
-		let numberCompensationY = textTools.centerTextVetrical(
-			font.get("MSYH").deriveFont(numberSize),
-			45
-		);
-		let stationPosition = textTools.verticalText(
-			font.get("HZK12").deriveFont(routeSize),
-			68,
-			state.route.allStation[0]
-		);
-		g.setRenderingHint(
-			RenderingHints.KEY_TEXT_ANTIALIASING,
-			RenderingHints.VALUE_TEXT_ANTIALIAS_OFF
-		);
-		g.setColor(Color.GREEN);
-		g.fillRect(0, 0, numberWidth, 68);
-		g.setColor(Color.BLUE);
-		g.fillRect(numberWidth, 0, routeWidth, 68);
-		g.setColor(color.get("Tongda red"));
-		g.setFont(font.get("MSYH").deriveFont(numberSize));
-		for (let i = 0; i < number.length; i++) {
-			g.drawString(
-				number[i],
-				numberPosition[i] + numberCompensationX,
-				numberCompensationY
+		var drawSide = () => {
+			state.stationHelper.drawAllStation(color.get("Tongda yellow"));
+			let number = state.route.number;
+			let texture = state.image.get("side");
+			let g = texture.graphics;
+			let numberWidth = 70;
+			let routeSize = 12;
+			let lengthCompensation = 70 - number.length * 18;
+			lengthCompensation = lengthCompensation < 6 ? 6 : lengthCompensation;
+			let routeWidth = 226 - numberWidth;
+			let numberSize = textTools.getFontMaxSize(
+				font.get("MSYH"),
+				24,
+				number,
+				numberWidth - 10
 			);
-		}
-		g.setFont(font.get("MSYH").deriveFont(17));
-		g.drawString("欢迎乘坐", 1, 65);
-		g.setFont(font.get("HZK12").deriveFont(routeSize));
-		for (let i = 0; i < state.route.allStation[0].length; i++) {
-			ctx.setDebugInfo("XYZ", stationPosition[0][0]);
-			g.drawString(
-				state.route.allStation[0][i],
-				stationPosition[0][i] + 80,
-				stationPosition[1][i]
+			let numberPosition = textTools.justifiedText(
+				font.get("MSYH").deriveFont(numberSize),
+				numberWidth - lengthCompensation,
+				number
 			);
-		}
-		texture.upload();
-		//};
-		ctx.setDebugInfo("Station", state.route.allStation[0]);
+			let numberCompensationX = textTools.centerTextHorizon(
+				number.length != 1
+					? numberWidth - lengthCompensation
+					: textTools.getTextWidth(
+							font.get("MSYH").deriveFont(numberSize),
+							number
+					  ),
+				numberWidth
+			);
+			let numberCompensationY = textTools.centerTextVetrical(
+				font.get("MSYH").deriveFont(numberSize),
+				45
+			);
+			g.setRenderingHint(
+				RenderingHints.KEY_TEXT_ANTIALIASING,
+				RenderingHints.VALUE_TEXT_ANTIALIAS_OFF
+			);
+			g.setColor(Color.BLACK);
+			g.fillRect(0, 0, numberWidth, 72);
+			g.fillRect(numberWidth, 0, routeWidth, 72);
+			g.setColor(color.get("Tongda red"));
+			g.setFont(font.get("MSYH").deriveFont(numberSize));
+			for (let i = 0; i < number.length; i++) {
+				g.drawString(
+					number[i],
+					numberPosition[i] + numberCompensationX,
+					numberCompensationY
+				);
+			}
+			g.setFont(font.get("MSYH").deriveFont(17));
+			g.drawString("欢迎乘坐", 1, 64);
+			g.setFont(font.get("HZK12").deriveFont(routeSize));
+			g.setColor(color.get("Tongda yellow"));
+			for (let index in state.stationHelper.getPageStation(state.page)) {
+				let stationInfo = state.stationHelper.getPageStation(state.page)[index];
+				g.drawImage(
+					stationInfo.BufferedImage,
+					stationInfo.imagePosition + numberWidth,
+					0,
+					null
+				);
+			}
+			state.stationHelper.scrollAllStation(2);
+			texture.upload();
+		};
+		//ctx.setDebugInfo("Station", state.stationHelper.toString(9));
 		let threadFront = new Thread(
 			() => drawRoute(state.image.get("front")),
 			"Front"
 		);
-		//let threadSide = new Thread(drawSide, "Side");
+		let threadSide = new Thread(drawSide, "Side");
 		let threadBack = new Thread();
 		if (isBraking(state, train)) {
 			threadBack = new Thread(
@@ -569,12 +579,17 @@ function render(ctx, state, train) {
 		} else {
 			threadBack = new Thread(() => drawRoute(state.image.get("back")), "Back");
 		}
-		ctx.setDebugInfo("isturning", isTurning(train));
-		ctx.setDebugInfo("Direction", turningDirection(train));
 		threadFront.start();
-		//threadSide.start();
+		threadSide.start();
 		threadBack.start();
+		state.PageClock++;
 		state.scrollClock++;
+		if (state.PageClock >= 50) {
+			state.page++;
+			state.PageClock = 0;
+			state.stationHelper.resetAllScrollClock();
+		}
+		if (state.page > state.stationHelper.getTotalPage()) state.page = 0;
 	}
 	//渲染部分
 	let matrices = new Matrices();
@@ -585,19 +600,203 @@ function render(ctx, state, train) {
 			state[board].drawFace(ctx, i, matrices);
 		}
 	}
+	ctx.setDebugInfo("PageClock", state.PageClock);
+	ctx.setDebugInfo("totalPage", state.stationHelper.getTotalPage());
+	ctx.setDebugInfo("CurretPage", state.page);
 }
 function dispose(ctx, state, train) {}
 
-function stationInfo(route) {
-	this.font = font.get("MSYH").deriveFont(16);
+function stationInfo(route, boardHeight, boardWidth, Font) {
+	this.routeInfo = route.allStation;
+	this.route = route;
+	this.boardHeight = boardHeight;
+	this.boardWidth = boardWidth;
+	this.type = "stationInfo";
+	this.font = Font;
 	this.stationMap = new Map();
-	for (let i = 0; i < route.allStation.length; i++) {
-		let station = route.allStation[i];
-		let height = this.stationMap.set(station, {
-			name: station,
-			length: station.length,
-			page,
-			position
-		});
+	this.stationList = new Array();
+	let totalWidth = 0;
+	let curretPage = 0;
+	//各种方法
+	this.toString = (minRange, maxRange) => {
+		minRange == null ? (minRange = 0) : null;
+		maxRange == null ? (maxRange = this.stationList.length) : null;
+		let AllInfo = new String("\n");
+		let Info = [];
+		for (let i = minRange; i < maxRange; i++) {
+			let station = this.stationList[i];
+			// prettier-ignore
+			let Index = Info.push
+				(this.route.allStation[i] + ":{\n   name: "
+				+ station.name + "\n   textheight: "
+				+ station.textHeight + "\n   length: "
+				+ station.length + "\n   shouldScroll: "
+				+ station.shouldScroll + "\n   page: "
+				+ station.page + "\n   textXPostion: "
+				+ station.textXPosition + "\n   imagePosition: "
+				+ station.imagePosition +"\n   textYPostion: "
+				+ station.textYPosition + "\n   scrollWatingTime:"
+				+ station.scrollWatingTime + "\n   scrollClock:"
+				+ station.scrollClock + "\n}\n");
+			// prettier-ignore
+			AllInfo +=
+				(this.route.allStation[i] + ":{\n   name: "
+				+ station.name + "\n   textheight: "
+				+ station.textHeight + "\n   length: "
+				+ station.length + "\n   shouldScroll: "
+				+ station.shouldScroll + "\n   page: "
+				+ station.page + "\n   textXPostion: "
+				+ station.textXPosition + "\n   imagePosition: "
+				+ station.imagePosition +"\n   textYPostion: "
+				+ station.textYPosition + "\n   scrollWatingTime:"
+				+ station.scrollWatingTime + "\n   scrollClock:"
+				+ station.scrollClock + "\n}\n");
+		}
+		return AllInfo;
+	};
+	this.getTotalPage = () => {
+		let maxIndex = this.stationList.length - 1;
+		let lastStation = this.stationList[maxIndex];
+		return lastStation.page;
+	};
+	this.drawAllStation = (color) => {
+		for (let i in this.stationList) {
+			this.stationList[i].drawStation(color);
+		}
+	};
+	this.getPageStation = (targetPage) => {
+		let targetPageStation = [];
+		for (let index in this.stationList) {
+			if (this.stationList[index].page == targetPage)
+				targetPageStation.push(this.stationList[index]);
+		}
+		return targetPageStation;
+	};
+	this.scrollAllStation = (pixel) => {
+		for (let i in this.stationList) {
+			let station = this.stationList[i];
+			let scrollEnd = station.textHeight - this.boardHeight;
+			if (
+				station.scrollWatingTime == -1 &&
+				station.scrollClock < scrollEnd &&
+				station.scrollClock > 0
+			) {
+				station.scrollReverse
+					? (station.scrollClock -= pixel)
+					: (station.scrollClock += pixel);
+				continue;
+			}
+			if (station.shouldScroll) {
+				if (
+					(station.scrollClock == 0 ||
+						station.scrollClock >= station.textHeight - this.boardHeight) &&
+					station.scrollWatingTime == -1
+				) {
+					station.scrollReverse = !station.scrollReverse;
+					station.scrollWatingTime = 0;
+				}
+				station.scrollWatingTime++;
+				station.scrollWatingTime == 10
+					? ((station.scrollWatingTime = -1),
+					  station.scrollReverse
+							? (station.scrollClock -= pixel)
+							: (station.scrollClock += pixel))
+					: null;
+			}
+		}
+	};
+	this.resetPageImagePosition = (page) => {
+		let pageStationList = [];
+		let nameTotalWidth = 0;
+		for (let i in this.stationList) {
+			if (this.stationList[i].page == page) {
+				pageStationList.push(this.stationList[i]);
+				nameTotalWidth += this.stationList[i].BufferedImage.getWidth();
+			}
+			if (this.stationList[i].page > page) break;
+		}
+		let spaceAmount = pageStationList.length - 1;
+		let space = (this.boardWidth - nameTotalWidth) / spaceAmount;
+		let curretWidth = 0;
+		for (let i in pageStationList) {
+			pageStationList[i].imagePosition = curretWidth;
+			curretWidth += pageStationList[i].BufferedImage.getWidth() + space;
+		}
+	};
+	this.resetAllScrollClock = () => {
+		for (let i in this.stationList) {
+			this.stationList[i].scrollClock = 0;
+			this.stationList[i].scrollWatingTime = 0;
+		}
+	};
+	//创建函数
+	for (let i in this.routeInfo) {
+		let stationName = this.routeInfo[i];
+		let textHeight = textTools.getTextHeight(this.font, stationName);
+		let textMaxWidth = textTools.getCharMaxWidth(this.font, stationName);
+		if (totalWidth + textMaxWidth > this.boardWidth) {
+			this.resetPageImagePosition(curretPage);
+			curretPage++;
+			totalWidth = 0;
+		}
+		this.stationList[i] = {
+			name: stationName,
+			textHeight: textHeight,
+			length: stationName.length,
+			shouldScroll: textHeight > this.boardHeight,
+			page: curretPage,
+			textXPosition: [],
+			textYPosition: [],
+			imagePosition: totalWidth,
+			scrollClock: 0,
+			BufferedImage: new BufferedImage(textMaxWidth + 2, this.boardHeight, 1),
+			scrollReverse: false,
+			scrollWatingTime: 0
+		};
+		/*this.stationMap.set(stationName, {
+			name: stationName,
+			textHeight: textHeight,
+			length: stationName.length,
+			shouldScroll: textHeight > this.boardHeight,
+			page: curretPage,
+			textXPosition: [],
+			textYPosition: [],
+			imagePosition: totalWidth,
+			scrollClock: 0,
+			BufferedImage: new BufferedImage(textMaxWidth + 2, this.boardHeight, 1),
+			scrollReverse: false,
+			scrollWatingTime: 0
+		});*/
+		let station = this.stationList[i];
+		let position = textTools.verticalText(
+			this.font,
+			textHeight > this.boardHeight ? textHeight : this.boardHeight,
+			stationName
+		);
+		for (let i = 0; i < position[0].length; i++) {
+			station.textXPosition[i] = (textMaxWidth + 2) / 2 + position[0][i];
+		}
+		totalWidth += textMaxWidth + 2;
+		station.textYPosition = position[1];
+		//方法
+		station.drawStation = (color) => {
+			let g = station.BufferedImage.getGraphics();
+			g.setColor(Color.BLACK);
+			g.fillRect(
+				0,
+				0,
+				station.BufferedImage.getWidth(),
+				station.BufferedImage.getHeight()
+			);
+			g.setColor(color);
+			g.setFont(this.font);
+			for (let i = 0; i < station.name.length; i++) {
+				g.drawString(
+					station.name[i],
+					station.textXPosition[i],
+					station.textYPosition[i] - station.scrollClock
+				);
+			}
+		};
 	}
 }
