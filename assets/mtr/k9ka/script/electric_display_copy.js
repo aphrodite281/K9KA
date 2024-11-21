@@ -1,5 +1,5 @@
 include("mtr:library/codes/base.js"); //功能性代码库（由Aphrodite28 Maxwenyan23开发）
-include("mtr:library/codes/rawface_copy.js");
+include("mtr:library/codes/rawface.js");
 include("mtr:library/codes/awt_text_tool.js");
 importPackage(java.awt);
 importPackage(java.lang);
