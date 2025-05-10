@@ -275,6 +275,7 @@ function create(ctx, state, train) {
 				.buildFace()
 				.uploadModelHolder(); // prettier-ignore
 	}
+	state.turningState = new StateTracker();
 }
 function render(ctx, state, train) {
 	if (state.refresh.shouldUpdate()) {
@@ -328,20 +329,26 @@ function render(ctx, state, train) {
 			state.route.code = routeCode;
 			print("成功加载线路" + state.route.code + "!");
 		}
+		state.inBrake = inBrake(state, train);
+		if (railType == "turn_left") state.turningState.setState("left");
+		if (railType == "turn_right") state.turningState.setState("right");
+		if (railType == "double_flash") state.turningState.setState("double");
+		if (!railType || railType == "go_straight")
+			state.turningState.setState("null");
 		if (state.route) {
 			for (let display in state.route.info) {
 				let currentDisplay = state.route[display];
 				currentDisplay.pageClock++;
+				if (currentDisplay.renderList) {
+					for (let resource of currentDisplay.renderList) {
+						let currentResource = currentDisplay.renderObject[resource];
+						currentResource.extraRan = false;
+					}
+				}
 				if (
 					currentDisplay.pageClock >= currentDisplay.pageClockReset &&
 					currentDisplay.pageClockReset != -1
 				) {
-					if (currentDisplay.renderList) {
-						for (let resource of currentDisplay.renderList) {
-							let currentResource = currentDisplay.renderObject[resource];
-							currentResource.extraRan = false;
-						}
-					}
 					currentDisplay.pageClock = 0;
 					currentDisplay.currentPage < currentDisplay.totalPage - 1
 						? currentDisplay.currentPage++
