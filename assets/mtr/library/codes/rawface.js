@@ -5,12 +5,12 @@
  * @param {ResourceLocation} texture 贴图,可留空
  * @param translate.rotation 使用角度制
  * @param translate.scale 输入x,y z为0即可
+ * @returns 该RawFace对象
  */
 function RawFace(renderType, translate, texture, uv) {
 	try {
 		this.uv = uv;
 		this.renderType = renderType;
-		this.translate = translate;
 		this.position = translate.position;
 		this.rotation = translate.rotation;
 		this.scale = translate.scale;
@@ -29,7 +29,7 @@ function RawFace(renderType, translate, texture, uv) {
 	this.matrix.rotateZ(this.rotation.z() * (Math.PI / 180));
 	/**
 	 * 以当前数据新建面
-	 * @returns RawFace
+	 * @returns 该RawFace对象
 	 */
 	this.buildFace = () => {
 		// prettier-ignore
@@ -71,6 +71,7 @@ function RawFace(renderType, translate, texture, uv) {
 	};
 	/**
 	 * 将模型上传为ModelHolder，可后续调用
+	 * @returns 该RawFace对象
 	 */
 	this.uploadModelHolder = () => {
 		this.modelHolder = new DynamicModelHolder();
@@ -83,6 +84,8 @@ function RawFace(renderType, translate, texture, uv) {
 			ctx.drawCarModel(this.modelHolder, trainCars, matrices);
 		} else if (this.ModelCluster != null) {
 			ctx.drawCarModel(this.ModelCluster, trainCars, matrices);
+		} else {
+			throw new Error("drawFace失败:ModelHolder与ModelCluster皆为null");
 		}
 		return this;
 	};
@@ -91,7 +94,7 @@ function RawFace(renderType, translate, texture, uv) {
 	 * @param {ResourceLocation} texture 要更换为的贴图
 	 * @param {boolean} isModelCluster 更改ModelCluster|RawModel
 	 * @param {boolean} upload 是否上传rawModel
-	 * @returns
+	 * @returns 该RawFace对象
 	 */
 	this.replaceTexture = (texture, isModelCluster, upload) => {
 		if (isModelCluster) {
@@ -113,7 +116,8 @@ function RawFace(renderType, translate, texture, uv) {
 		let newRawFace = new RawFace(
 			this.renderType,
 			this.translate,
-			this.texture
+			this.texture,
+			this.uv
 		).buildFace();
 		return newRawFace;
 	};

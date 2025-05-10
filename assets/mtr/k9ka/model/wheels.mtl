@@ -1,4 +1,4 @@
-# Blender 4.2.0 Alpha MTL File: 'K9KA I(第一巴士)(已合并网格).blend'
+# Blender 4.2.0 MTL File: 'K9KA I(第一巴士).blend'
 # www.blender.org
 
 newmtl Black
@@ -24,7 +24,7 @@ illum 2
 newmtl Material
 Ns 646.090393
 Ka 1.000000 1.000000 1.000000
-Kd 0.004777 0.006995 0.007499
+Kd 0.009062 0.009062 0.009062
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.450000

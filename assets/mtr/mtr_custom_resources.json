@@ -1,13 +1,47 @@
 {
 	"custom_trains": {
-		"k9kaTest": {
-			"name": "k9kaTest",
+		"k9kaCustom": {
+			"name": "GZ6122LGEV(自定义线路)",
 			"base_type": "train_12_2",
 			"has_gangway_connection": false,
 			"color": "2AF0AD",
 			"script_files": [
 				"mtr:k9ka/script/body.js",
-				"mtr:k9ka/script/electric_display_copy.js",
+				"mtr:k9ka/script/window.js",
+				"mtr:k9ka/script/display_custom.js",
+				"mtr:k9ka/script/doors.js",
+				"mtr:k9ka/script/wheels.js",
+				"mtr:k9ka/script/wipers.js",
+				"mtr:k9ka/script/sounds.js"
+			],
+			"old": [],
+			"rider_offset": -0.5
+		},
+		"k9kaAuto": {
+			"name": "GZ6122LGEV(自动线路)",
+			"base_type": "train_12_2",
+			"has_gangway_connection": false,
+			"color": "2AF0AD",
+			"script_files": [
+				"mtr:k9ka/script/body.js",
+				"mtr:k9ka/script/window.js",
+				"mtr:k9ka/script/display_auto.js",
+				"mtr:k9ka/script/doors.js",
+				"mtr:k9ka/script/wheels.js",
+				"mtr:k9ka/script/wipers.js",
+				"mtr:k9ka/script/sounds.js"
+			],
+			"old": [],
+			"rider_offset": -0.5
+		},
+		"k9kaAuto1": {
+			"name": "GZ6122LGEV(自定义线路，摆拍用)",
+			"base_type": "train_12_2",
+			"has_gangway_connection": false,
+			"color": "2AF0AD",
+			"script_files": [
+				"mtr:k9ka/script/body.js",
+				"mtr:k9ka/script/display_custom_show.js",
 				"mtr:k9ka/script/doors.js",
 				"mtr:k9ka/script/wheels.js",
 				"mtr:k9ka/script/wipers.js",

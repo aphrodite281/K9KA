@@ -1,5 +1,5 @@
 include("mtr:library/codes/face.js");
-include("mtr:library/codes/base.js");
+//include("mtr:library/codes/base.js");
 
 let rawbodyModels = ModelManager.loadPartedRawModel(
 	Resources.manager(),
@@ -30,7 +30,6 @@ let lightNames = [
 	"R3",
 	"R4",
 	"R5",
-	"R6",
 	"backupLamp",
 	"brakeLamp",
 	"fogLamp",
@@ -50,8 +49,7 @@ let indoorLights = [
 	"R2",
 	"R3",
 	"R4",
-	"R5",
-	"R6"
+	"R5"
 ];
 for (let i = 0; i < lightNames.length; i++) {
 	for (let j = 0; j < 2; j++) {
@@ -94,7 +92,7 @@ const cpd = Resources.readBufferedImage(
 	Resources.id("mtr:k9ka/texture/cpd.png")
 );
 
-setupBodyGlass(bodyModels.get("glasses"));
+//setupBodyGlass(bodyModels.get("glasses"));
 
 const dromometerPos = { x: 0.463411, y: 0.069793, z: 5.56079 };
 const dromometerRot = { x: -1.1083, y: 0, z: 0 };
@@ -102,24 +100,23 @@ const dMinRot = -0.3;
 const dMaxRot = Math.PI + 0.3;
 const dMaxSpeed = 140;
 const licensePlatePos = [
-	{ x: 0, y: -0.955764, z: 6.1705 - 0.03 },
-	{ x: 0, y: -0.792393 - 0.05, z: -5.93256 - 0.05 }
+	{ x: 0, y: -0.955764, z: 6.1349 },
+	{ x: 0, y: -0.792393 - 0.05, z: -5.918 }
 ];
 const licensePlateRotY = [0, Math.PI];
 const licensePlateSize = { x: 0.6, y: 0.18 };
 const licensePlateFontSize = 100;
 const licensePlateShiftY = 90;
 const licensePlateColor = [Color.YELLOW, Color.BLACK, Color.WHITE, Color.GREEN];
-const difficultyFont1 = Resources.getSystemFont("Noto Sans"); //Resources.readFont(Resources.id("mtr:k9ka/font/DIN1451-36breit.ttf"));
+const difficultyFont1 = Resources.getSystemFont("Noto Sans");
 const kt = "粤A";
-const kt1 = "D1-H";
 const numSize = { x: 0.7 * 0.6, y: 0.15 * 0.6 };
 const numPos = [
-	{ x: 1.27488 + 0.01, y: -0.358479, z: 4.33552 },
-	{ x: 0.57, y: -0.12, z: 6.1225 },
-	{ x: -0.78275, z: -5.92, y: 0.38 }
+	{ x: -1.27502, y: -0.09, z: 4.2 },
+	{ x: 0.57, y: -0.12, z: 6.123 },
+	{ x: -0.78275, z: -5.925, y: 0.292 }
 ];
-const numRotY = [Math.PI / 2, 0, Math.PI];
+const numRotY = [-Math.PI / 2, 0, Math.PI];
 
 let cube1 = ModelManager.uploadVertArrays(
 	ModelManager.loadRawModel(
@@ -132,8 +129,7 @@ let cube1 = ModelManager.uploadVertArrays(
 //----------
 
 function create(ctx, state, train) {
-	//state.licensePlateNum = "枫A·"+train.id().toString(36).slice(-5).toUpperCase();
-	state.num = kt1 + train.id().toString(10).slice(2, 5);
+	state.num = train.siding().name;
 	state.numFace = new Face({
 		modelInfo: { size: numSize, renderType: "exteriortranslucent" }
 	});
@@ -143,7 +139,7 @@ function create(ctx, state, train) {
 	g.setFont(difficultyFont1.deriveFont(Font.PLAIN, 100));
 	g.drawString(state.num, 0, 78);
 	state.numFace.upload();
-	state.licensePlateNum = train.id().toString(10).slice(10, 15) + "D";
+	state.licensePlateNum = train.siding().id.toString(10).slice(10, 15) + "D";
 	state.licensePlateFace = new Face({
 		modelInfo: { size: licensePlateSize, renderType: "exteriortranslucent" }
 	});
@@ -191,8 +187,8 @@ function create(ctx, state, train) {
 //----------
 
 function render(ctx, state, train) {
-	//ctx.setDebugInfo("num", state.num)
 	let matrices = state.matrices;
+	matrices.pushPose();
 	state.licensePlateFace.setupModel();
 	for (let j = 0; j < licensePlatePos.length; j++) {
 		matrices.pushPose();
@@ -242,7 +238,7 @@ function render(ctx, state, train) {
 			ctx.drawCarModel(bodyModels.get("NOff"), i, matrices);
 			ctx.drawCarModel(bodyModels.get("DOff"), i, matrices);
 		}
-
+		//ctx.drawCarModel(bodyModels.get("CustomBoard"), i, matrices);
 		ctx.drawCarModel(bodyModels.get("outdoor"), i, matrices);
 		ctx.drawCarModel(bodyModels.get("slogan"), i, matrices);
 		ctx.drawCarModel(
@@ -255,7 +251,7 @@ function render(ctx, state, train) {
 			i,
 			matrices
 		);
-		ctx.drawCarModel(bodyModels.get("glasses"), i, matrices);
+		//ctx.drawCarModel(bodyModels.get("glasses"), i, matrices);
 		ctx.drawCarModel(
 			bodyModels.get(
 				"backupLamp" + (train.isReversed() && train.speed() != 0 ? "On" : "Off")
@@ -337,6 +333,7 @@ function render(ctx, state, train) {
 		);
 		matrices.popPose();
 	}
+	matrices.popPose();
 }
 
 //----------
@@ -364,7 +361,7 @@ function setupDoorColor(modelCluster) {
 
 function getModelKey(train, carIndex) {
 	let railProgress = train.getRailProgress(carIndex);
-	let railIndex = train.getRailIndex(railProgress, true);
+	let railIndex = train.getRailIndex(railProgress, false);
 	let pathDatas = train.path();
 	let pathData = pathDatas[railIndex];
 	let rail = pathData.rail;
@@ -412,5 +409,24 @@ function alterAllRGBA(modelCluster, red, green, blue, alpha) {
 	for (let i = 0; i < vertarray.length; i++) {
 		vert = vertarray[i];
 		vert.materialProp.attrState.setColor(red, green, blue, alpha);
+	}
+}
+function inBrake(state, train) {
+	if (isBraking(state, train)) {
+		state.brakeTime = Timing.elapsed() + 0.2;
+	}
+	if (state.brakeTime > Timing.elapsed()) {
+		return true;
+	} else {
+		return false;
+	}
+}
+function isBraking(state, train) {
+	if (state.speed <= train.speed()) {
+		state.speed = train.speed();
+		return false;
+	} else {
+		state.speed = train.speed();
+		return true;
 	}
 }

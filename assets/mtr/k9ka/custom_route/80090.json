@@ -1,0 +1,137 @@
+{
+	"FrontDisplay": {
+		"totalPage": 1,
+		"pageClockReset": 45816,
+		"renderObject": {
+			"origin": {
+				"require": true,
+				"image": "mtr:k9ka/custom_route/80090/prsvg.png",
+				"position": ["1 - pageClock % 249", 14]
+			},
+			"B9": {
+				"require": true,
+				"image": "mtr:k9ka/custom_route/80090/b9.png",
+				"position": [85, 0]
+			},
+			"destination-Part1": {
+				"require": "105 - pageClock % 184 >= 85",
+				"image": "mtr:k9ka/custom_route/80090/hnt_p1.png",
+				"position": ["105 - pageClock % 184", 13]
+			},
+			"destination-Part2": {
+				"require": "141 - pageClock % 184 >= 85",
+				"image": "mtr:k9ka/custom_route/80090/hnt_p2.png",
+				"position": ["141 - pageClock % 184", 13]
+			},
+			"destination-Part3": {
+				"require": "177 - pageClock % 184 >= 85",
+				"image": "mtr:k9ka/custom_route/80090/hnt_p3.png",
+				"position": ["177 - pageClock % 184", 13]
+			},
+			"destination-Part4": {
+				"require": "213 - pageClock % 184 >= 85",
+				"image": "mtr:k9ka/custom_route/80090/hnt_p4.png",
+				"position": ["213 - pageClock % 184", 13]
+			},
+			"destination-Part5": {
+				"require": "249 - pageClock % 184 >= 85",
+				"image": "mtr:k9ka/custom_route/80090/hnt_p5.png",
+				"position": ["249 - pageClock % 184", 13]
+			},
+			"destination-Part6": {
+				"require": "288 - pageClock % 184 >= 85",
+				"image": "mtr:k9ka/custom_route/80090/hnt_p6.png",
+				"position": ["288 - pageClock % 184", 13]
+			},
+			"珠江南景园_华景新城": {
+				"require": true,
+				"image": "mtr:k9ka/custom_route/80090/prsvg_hnt.png",
+				"position": [0, 0]
+			}
+		},
+		"renderList": [
+			"珠江南景园_华景新城",
+			"origin",
+			"destination-Part1",
+			"destination-Part2",
+			"destination-Part3",
+			"destination-Part4",
+			"destination-Part5",
+			"destination-Part6",
+			"B9"
+		]
+	},
+	"SideDisplay": {
+		"totalPage": 4,
+		"pageClockReset": 100,
+		"renderObject": {
+			"Page1": {
+				"require": "renderPage == 0",
+				"image": "mtr:k9ka/custom_route/80090/page1_base_image.png",
+				"position": [0, 0],
+				"extra": "display.pageClockReset = 20"
+			},
+			"Page2": {
+				"require": "renderPage == 1",
+				"image": "mtr:k9ka/custom_route/80090/page2_base_image.png",
+				"position": [0, 0],
+				"extra": "display.pageClockReset = 100"
+			},
+			"江燕花园(地铁江泰路站)": {
+				"require": "renderPage == 1",
+				"image": "mtr:k9ka/custom_route/80090/jiangyanhuayuan.png",
+				"position": [
+					89,
+					"(pageClock<=10 || pageClock > 90?0:pageClock > 40 && pageClock <= 60?-109:pageClock>60?-3.633333333333333 * (90 - pageClock):-3.633333333333333 * (pageClock-10))+2"
+				]
+			},
+			"礼岗(省口腔医院)": {
+				"require": "renderPage == 1",
+				"image": "mtr:k9ka/custom_route/80090/ligang.png",
+				"position": [
+					104,
+					"(pageClock<=10 || pageClock > 90?0:pageClock > 40 && pageClock <= 60?-65:pageClock>60?-2.166666666666667 * (90 - pageClock):-2.166666666666667 * (pageClock-10))+2"
+				]
+			},
+			"Page3": {
+				"require": "renderPage == 2",
+				"image": "mtr:k9ka/custom_route/80090/page3_base_image.png",
+				"position": [0, 0],
+				"extra": "display.pageClockReset = 50"
+			},
+			"Page4": {
+				"require": "renderPage == 3",
+				"image": "mtr:k9ka/custom_route/80090/page4_base_image.png",
+				"position": [0, 0],
+				"extra": "display.pageClockReset = 40"
+			},
+			"BRT_tips": {
+				"require": "(thisStation == '体育中心|Tianhe Sports Center' ||thisStation == '石牌桥|Shipai Qiao'||thisStation == '岗顶|Gangding'||thisStation == '师大暨大|Normal University & Jinan University')&& renderPage!=0",
+				"image": "mtr:k9ka/custom_route/80090/brt_tips.png",
+				"position": [0, 0],
+				"extra": "display.pageClockReset = 30;display.currentPage = 3"
+			}
+		},
+		"renderList": [
+			"Page2",
+			"Page3",
+			"Page4",
+			"江燕花园(地铁江泰路站)",
+			"礼岗(省口腔医院)",
+			"BRT_tips",
+			"Page1"
+		]
+	},
+	"BackDisplay": {
+		"totalPage": 1,
+		"pageClockReset": 0,
+		"renderObject": {
+			"底图": {
+				"require": true,
+				"image": "mtr:k9ka/custom_route/80090/prsvg_b9_hnt.png",
+				"position": [0, 0]
+			}
+		},
+		"renderList": ["底图"]
+	}
+}

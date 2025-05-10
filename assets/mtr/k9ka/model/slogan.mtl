@@ -1,32 +1,22 @@
-# Blender 4.2.0 Alpha MTL File: 'abc.blend'
+# Blender 4.2.0 MTL File: 'K9KA I(第一巴士).blend'
 # www.blender.org
 
-newmtl biaoyu
+newmtl Logo
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
 illum 2
-Pr 0.500000
-Pm 0.000000
-Ps 0.000000
-Pc 0.000000
-Pcr 0.030000
-aniso 0.000000
-anisor 0.000000
-map_Kd biaoyu.png
-map_d biaoyu.png
+map_Kd guangzhou_no1_bus.png
+map_d guangzhou_no1_bus.png
 
-newmtl chetou
+newmtl slogan
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
-d 1.000000
 illum 2
-Pr 0.500000
-Pm 0.000000
-Ps 0.000000
-Pc 0.000000
-Pcr 0.030000
-aniso 0.000000
-anisor 0.000000
-map_Kd diyi.png
+map_Kd slogan.png
+map_d slogan.png
