@@ -1,9 +1,9 @@
-<center>
+<div><center>
 <img src=https://github.com/aphrodite281/K9KA/blob/inDevelop/K9KA-icon.png?raw=true width=50%>
 
 # **广州公交 K9KA**
 
-</center>
+</center></div>
 
 <div>
 
