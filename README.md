@@ -1,11 +1,9 @@
-<div><center>
-<img src=https://github.com/aphrodite281/K9KA/blob/inDevelop/K9KA-icon.png?raw=true width=50%>
+<div align="center"><img src=https://github.com/aphrodite281/K9KA/blob/inDevelop/K9KA-icon.png?raw=true width=50%></img>
+</div>
+<strong>
 
-# **广州公交 K9KA**
+<strong><p align="center" style ="font-size:25px">广州公交 K9KA</p></strong></strong><div>
 
-</center></div>
-
-<div>
 
 <img src=https://raw.githubusercontent.com/aphrodite281/K9KA/refs/heads/inDevelop/%E7%AC%AC%E4%B8%80%E5%B7%B4%E5%A3%AB.png width=50%/><img src=https://raw.githubusercontent.com/aphrodite281/K9KA/refs/heads/inDevelop/%E5%B9%BF%E5%B7%9E%E5%B7%B4%E5%A3%AB%E9%9B%86%E5%9B%A2.png width=50%/></div>
 
@@ -105,4 +103,3 @@
 
 你可通过持续看着窗把手一秒来打开窗户
 关窗同理
-
