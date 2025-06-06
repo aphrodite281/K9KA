@@ -176,7 +176,7 @@ function create(ctx, state, train) {
 		}
 	}
 	state.matrices = new Matrices();
-	state.matrices.translate(0, 0.5, 0);
+	state.matrices.translate(0, 0.375, 0);
 	state.swerves = [
 		new CycleTracker(["On", 0.4, "Off", 0.2]),
 		new CycleTracker(["On", 0.4, "Off", 0.2])

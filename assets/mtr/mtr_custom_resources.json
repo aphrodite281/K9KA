@@ -2,6 +2,8 @@
 	"custom_trains": {
 		"k9kaCustom": {
 			"name": "GZ6122LGEV(自定义线路)",
+			"description": "K9KA",
+			"wikipedia_article": "该车为广汽比亚迪于2018年出产的K9KA，不过本追加对其进行了较大修改",
 			"base_type": "train_12_2",
 			"has_gangway_connection": false,
 			"color": "2AF0AD",
@@ -15,7 +17,7 @@
 				"mtr:k9ka/script/sounds.js"
 			],
 			"old": [],
-			"rider_offset": -0.5
+			"rider_offset": -0.7
 		},
 		"k9kaAuto": {
 			"name": "GZ6122LGEV(自动线路)",
@@ -32,7 +34,7 @@
 				"mtr:k9ka/script/sounds.js"
 			],
 			"old": [],
-			"rider_offset": -0.5
+			"rider_offset": -0.7
 		},
 		"k9kaAuto1": {
 			"name": "GZ6122LGEV(自定义线路，摆拍用)",
@@ -48,7 +50,7 @@
 				"mtr:k9ka/script/sounds.js"
 			],
 			"old": [],
-			"rider_offset": -0.5
+			"rider_offset": -0.7
 		}
 	}
 }

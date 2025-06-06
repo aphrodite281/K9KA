@@ -1,16 +1,5 @@
-const WindowModel = ModelManager.loadPartedRawModel(
-	Resources.manager(),
-	Resources.id("mtr:k9ka/model/windows.obj"),
-	null
-);
-const partList = [
-	"fixation",
-	"movable_L1",
-	"movable_L2",
-	"movable_L3",
-	"movable_R1",
-	"movable_R2"
-];
+const WindowModel = ModelManager.loadPartedRawModel(Resources.manager(), Resources.id("mtr:k9ka/model/windows.obj"), null);
+const partList = ["fixation", "movable_L1", "movable_L2", "movable_L3", "movable_R1", "movable_R2"];
 const windowsNumber = 5;
 const windowsPosition = [
 	new Vector3f(1.24129, 0.519896, 5.71871),
@@ -37,13 +26,8 @@ function create(ctx, state, train) {
 } //prettier-ignore
 function render(ctx, state, train) {
 	let CameraPosition = MinecraftClient.getCameraPos(); //Vector3f
-	let CameraAngle = MinecraftClient.getCameraEntity().getLookAngle(); //Vector3f
 	let additiveCameraPosition = new Matrix4f();
-	additiveCameraPosition.translate(
-		-CameraPosition.x(),
-		-CameraPosition.y(),
-		-CameraPosition.z()
-	);
+	additiveCameraPosition.translate(-CameraPosition.x(), -CameraPosition.y(), -CameraPosition.z());
 	//---------
 	let matrices = state.matrices;
 	//---------//
@@ -54,7 +38,6 @@ function render(ctx, state, train) {
 				StatusNow = state.windowsStatus[i][j];
 			//---------//
 			matrices.pushPose();
-			ctx.setDebugInfo(DebugKey + " statusNow", StatusNow.stateNow());
 			switch (StatusNow.stateNow()+"") {
 				case "opening":
 					var windowValue = Math.min(1, StatusNow.stateNowDuration());
@@ -121,12 +104,6 @@ function render(ctx, state, train) {
 					? StatusNow.setState("open")
 					: StatusNow.setState("close");
 			}
-		
-			ctx.setDebugInfo(DebugKey + " translate", windowZTranslate)
-			ctx.setDebugInfo(DebugKey + " WindowValue", windowValue	);
-			
-			ctx.setDebugInfo(DebugKey + " statusLast", state.windowsStatus[i][j].stateLast());
-			ctx.setDebugInfo(DebugKey + " statusNow Time",state.windowsStatus[i][j].stateNowDuration());
 			matrices.translate(
 				windowsPosition[j].x(),
 				windowsPosition[j].y(),
@@ -137,14 +114,6 @@ function render(ctx, state, train) {
 		}
 		ctx.drawCarModel(partedModel.get("fixation"), i, matrices);
 		}
-	ctx.setDebugInfo("相对位置", state.windowsRelativePose[0]);
-	ctx.setDebugInfo("摄像机位置", CameraPosition);
-	ctx.setDebugInfo("摄像机角度", [
-		CameraAngle.x(),
-		CameraAngle.y(),
-		CameraAngle.z()
-	]);
-	ctx.setDebugInfo("列车位置", train.lastWorldPose[0]);
 }
 /**
  * 用来计算视线是否看着某点
@@ -154,11 +123,7 @@ function render(ctx, state, train) {
  */
 function isLooking(A, B, tolerance) {
 	let [Ax, Ay, Az, Bx, By, Bz] = [A.x(), A.y(), A.z(), B.x(), B.y(), B.z()];
-	[x, y, z] = [
-		isInTolerance(Ax, Bx, tolerance),
-		isInTolerance(Ay, By, tolerance),
-		isInTolerance(Az, Bz, tolerance)
-	];
+	[x, y, z] = [isInTolerance(Ax, Bx, tolerance), isInTolerance(Ay, By, tolerance), isInTolerance(Az, Bz, tolerance)];
 	return x && y && z;
 }
 function isInTolerance(value, targetValue, tolerance) {

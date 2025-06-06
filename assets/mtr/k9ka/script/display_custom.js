@@ -13,8 +13,6 @@ const color = new Map()
 	.set("Yellow", new Color(0xf8cf8b));
 var FontTransform = new AffineTransform();
 FontTransform.scale(0.63, 1);
-var displayMatrices = new Matrices();
-displayMatrices.translate(0, 0.5, 0);
 /* 常量定义 */
 
 /* 贴图定义 */
@@ -278,6 +276,7 @@ function create(ctx, state, train) {
 	state.turningState = new StateTracker();
 }
 function render(ctx, state, train) {
+	let matrices = state.matrices;
 	if (state.refresh.shouldUpdate()) {
 		if (
 			!train.isOnRoute() ||
@@ -330,6 +329,9 @@ function render(ctx, state, train) {
 			print("成功加载线路" + state.route.code + "!");
 		}
 		state.inBrake = inBrake(state, train);
+		let railType = train
+			.path()
+			[train.getRailIndex(train.railProgress(), false)].rail.getModelKey();
 		if (railType == "turn_left") state.turningState.setState("left");
 		if (railType == "turn_right") state.turningState.setState("right");
 		if (railType == "double_flash") state.turningState.setState("double");
@@ -363,11 +365,11 @@ function render(ctx, state, train) {
 
 	for (let i = 0; i < train.trainCars(); i++) {
 		for (let board in state.boardlist) {
-			state.boardlist[board].rawface.drawFace(ctx, i, displayMatrices);
+			state.boardlist[board].rawface.drawFace(ctx, i, matrices);
 		}
 		if (MinecraftClient.getCameraDistance(train.lastCarPosition[i]) < 30)
 			for (let grid of gridlist) {
-				grid.rawface.drawFace(ctx, i, displayMatrices);
+				grid.rawface.drawFace(ctx, i, matrices);
 			}
 	}
 	//线路更新检测

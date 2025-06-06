@@ -1,189 +1,99 @@
-let rawWheelModels = ModelManager.loadPartedRawModel(
-	Resources.manager(),
-	Resources.id("mtr:k9ka/model/wheels.obj"),
-	null
-);
-var wheelModels = uploadPartedModels(rawWheelModels);
-let rawSteeringModel = ModelManager.loadRawModel(
-	Resources.manager(),
-	Resources.id("mtr:k9ka/model/steering.obj"),
-	null
-);
-var steeringModel = ModelManager.uploadVertArrays(rawSteeringModel);
-let cube1 = ModelManager.uploadVertArrays(
-	ModelManager.loadRawModel(
-		Resources.manager(),
-		Resources.id("mtr:k9ka/model/cube1.obj"),
-		null
-	)
-);
-let cube2 = ModelManager.uploadVertArrays(
-	ModelManager.loadRawModel(
-		Resources.manager(),
-		Resources.id("mtr:k9ka/model/cube2.obj"),
-		null
-	)
-);
-
-var wheelRadius = 1.13665 / 2;
-var rearWheelPos = { x: 0, y: -0.841317, z: -2.76084 };
-var anteriorWheelPos = { x: 1.18998, y: -0.841317, z: 3.38363 };
-var steeringPos = { x: 0.572652, y: -0.008049, z: 5.3503 };
-var steeringRot = { x: -55.231, y: Math.PI, z: 0 };
-var anteriorWheelDPos = 6 - anteriorWheelPos.z;
-
-//----------
-
+var rawWheelsModels = ModelManager.loadPartedRawModel(Resources.manager(), Resources.id("mtr:k9ka/model/wheels.obj"), null);
+var rawWheelsClusters = new Map();
+var wheelRadius = new Array(3).fill(1.13665 / 2);
+for (let [key, model] of rawWheelsModels) {
+	let tempModel = model.copy();
+	tempModel.applyUVMirror(false, true);
+	let modelCluster = ModelManager.uploadVertArrays(tempModel);
+	rawWheelsClusters.set(key + "", modelCluster);
+}
+var wheelsPosition = [
+	new Vector3f(1.18998, -0.841317 + 0.375, 3.38363),
+	new Vector3f(-1.18998, -0.841317 + 0.375, 3.38363),
+	new Vector3f(0, -0.841317 + 0.375, -2.76084)
+]; //left,right,rear
 function create(ctx, state, train) {
-	state.radian = 0;
-	state.wheelRot = new Array();
-}
-
-//----------
-
-function render(ctx, state, train) {
-	state.wheelRot = new Array();
+	state.distanceLast = train.railProgress();
+	state.wheelsRotationDistance = 0;
+	let keys = ["left", "right", "rear"];
 	for (let i = 0; i < train.trainCars(); i++) {
-		state.wheelRot.push(getSwerveRadian(train, i));
-	}
-	state.radian +=
-		((train.isReversed() ? -1 : 1) * Timing.delta() * train.speed() * 20) /
-		wheelRadius;
-	let matrices = state.matrices;
-	matrices.pushPose();
-	matrices.translate(rearWheelPos.x, rearWheelPos.y, rearWheelPos.z);
-	matrices.rotateX(state.radian);
-	for (let i = 0; i < train.trainCars(); i++) {
-		ctx.drawCarModel(wheelModels["rear"], i, matrices);
-	}
-	matrices.popPose();
-
-	for (let i = 0; i < train.trainCars(); i++) {
-		for (let j = 0; j < 2; j++) {
-			matrices.pushPose();
-			matrices.translate(
-				(j ? 1 : -1) * anteriorWheelPos.x,
-				anteriorWheelPos.y,
-				anteriorWheelPos.z
-			);
-			matrices.rotateY(state.wheelRot[i] + train.isReversed() ? Math.PI : 0);
-			matrices.rotateX(-state.radian);
-			ctx.drawCarModel(wheelModels[j ? "right" : "left"], i, matrices);
-			matrices.popPose();
+		let carIndex = i,
+			drawCalls = ctx.drawCalls[carIndex];
+		for (let j = 0; j <= keys.length - 1; j++) {
+			let currentIndex = j,
+				key = keys[currentIndex];
+			let commit = (drawScheduler, basePose, worldPose, light) => {
+				try {
+					const model = rawWheelsClusters.get(key); //先载入模型
+					//获取train相对于world的矩阵(即正常情况下的train.lastWorldPose)
+					let m_object_camera = basePose.copy(),
+						m_world_camera = worldPose,
+						m_camera_world = reserveMatrix4f(m_world_camera.copy()),
+						m_object_world = m_camera_world.copy();
+					m_object_world.multiply(m_object_camera); //等效于train.lastWorldPose[carIndex]
+					let poseCollection = [basePose.copy(), worldPose.copy()],
+						posCollection = [wheelsPosition[currentIndex].copy(), m_object_world.transform(wheelsPosition[currentIndex])];
+					let turingRad = getTuringRad(train, carIndex, -7, 1, 0);
+					poseCollection.forEach((value, index) => {
+						value.translate(posCollection[index]);
+						index == 1 ? value.rotateY(turingRad.y()) : undefined;
+						value.rotateX(state.wheelsRotationDistance / wheelRadius[currentIndex]);
+					});
+					drawScheduler.enqueue(model, key == "rear" ? poseCollection[0] : poseCollection[1], light);
+					//添加到渲染队列，因为后轮不需要y轴旋转所以不用使用绝对矩阵
+				} catch (error) {
+					ctx.setDebugInfo("Failed to set up commit", `${error.message} (#${error.lineNumber})`);
+				}
+			};
+			drawCalls.put(key, new DrawCall({ commit }));
 		}
-		matrices.pushPose();
-		matrices.translate(steeringPos.x, steeringPos.y, steeringPos.z);
-		matrices.rotateY(steeringRot.y);
-		matrices.rotateX(steeringRot.x);
-		matrices.rotateZ(steeringRot.z);
-		matrices.rotateY(state.wheelRot[i] * 15);
-		ctx.drawCarModel(steeringModel, i, matrices);
-		matrices.popPose();
 	}
 }
-
-//----------
-
-function uploadPartedModels(rawModels) {
-	let result = {};
-	for (it = rawModels.entrySet().iterator(); it.hasNext(); ) {
-		entry = it.next();
-		entry.getValue().applyUVMirror(false, true);
-		result[entry.getKey()] = ModelManager.uploadVertArrays(entry.getValue());
+function render(ctx, state, train) {
+	//---轮子滚动部分---//
+	state.distanceNow = train.railProgress();
+	state.wheelsRotationDistance += ((state.distanceNow - state.distanceLast) % train.spacing()) * (train.isReversed() ? -1 : 1);
+	state.distanceLast = state.distanceNow;
+	//---轮子滚动部分---//
+}
+function getTuringRad(train, carIndex, offsetEnd, offsetStart, totalOffset) {
+	//offsetEnd:后点移动;offsetStart:前点移动;totalOffset:两点同时移动
+	//最大转向角似乎是offsetEnd,offsetStart比例？
+	let pointCollection = [];
+	carIndex = train.isReversed() ? train.trainCars() - carIndex : carIndex;
+	for (let i = 0; i <= 2; i++) {
+		let offset = ((i ? offsetEnd : offsetStart) + totalOffset) * (train.isReversed() ? -1 : 1);
+		//            |计算两点独立偏移| |总体偏移|//
+		//两点偏移(PointEnd的绝对值要大于PointStart，确保PointEnd永远在PointStart后面)
+		let targetProgress = train.getRailProgress(carIndex) + offset;
+		let absolutePos = getRailPosition(targetProgress, train);
+		pointCollection.push(absolutePos);
 	}
-	return result;
+	let pointStart = pointCollection.shift(),
+		pointEnd = pointCollection.pop();
+	let pointSub = pointStart.copy();
+	pointSub.sub(pointEnd);
+	return new Vector3f(0, Math.atan2(pointSub.x(), pointSub.z()), 0);
 }
-
-function getSwerveRadian(train, carIndex) {
-	let vectors = [];
-	for (let i = 0; i < 2; i++) {
-		let rawValue =
-			train.getRailProgress(
-				train.isReversed() ? train.trainCars() - carIndex : carIndex
-			) -
-			(train.isReversed() ? -1 : 1) * 1 +
-			(train.isReversed() ? 1 : -1) * (i ? 1 : -1) * 0.05; //- (train.isReversed()? -1: 1) * anteriorWheelDPos;
-		let railIndex = train.getRailIndex(rawValue, false);
-		let pathDatas = train.path();
-		let pathData = pathDatas[railIndex];
-		let rail = pathData.rail;
-		let lengths = getLengths(pathDatas);
-		let railValue = rawValue - (railIndex > 0 ? lengths[railIndex - 1] : 0);
-		let vec = toVector3f(rail.getPosition(railValue));
-		vectors.push(vec);
+function getRailPosition(railProgress, train) {
+	let PathLength = [],
+		railIndex = train.getRailIndex(railProgress, false);
+	for (let i = 0; i < railIndex; i++) PathLength.push(train.path()[i].rail.getLength());
+	while (PathLength.length != 0) railProgress -= PathLength.pop();
+	return new Vector3f(train.path()[railIndex].rail.getPosition(railProgress));
+}
+function reserveVector3f(v) {
+	return new Vector3f(-v.x(), -v.y(), -v.z());
+}
+function reserveMatrix4f(m) {
+	let tm = m.asMoj(); //tempMatrix
+	if (tm.getClass().getName() + "" == "net.minecraft.class_1159") {
+		//net.minecraft.class_1159:com.mojang.math.Matrix4f
+		let im = tm.method_22673(); //im:invertMatrix method_22673:copy()
+		im.method_22870(); //method_22870:invert()
+		return new Matrix4f(im);
+	} else {
+		im = tm.invert(); //org.joml.Matrix4f;
+		return new Matrix4f(im);
 	}
-	let vector = vectors[1].copy();
-	vector.sub(vectors[0]);
-	let rawRadius = Math.atan2(vector.x(), vector.z()) + Math.PI;
-	let radian = rawRadius - train.lastCarRotation[carIndex].y();
-	return radian;
-}
-
-function toVector3f(vec3) {
-	let str = vec3.toString();
-	let cleanStr = str.slice(1, -1);
-	let coords = cleanStr.split(",");
-	let x = parseFloat(coords[0].trim());
-	let y = parseFloat(coords[1].trim());
-	let z = parseFloat(coords[2].trim());
-	return new Vector3f(x, y, z);
-}
-
-function getWorldPosition(localPosition, trainPosition, trainRotation) {
-	let matrix4f = new Matrix4f();
-
-	matrix4f.rotateX(trainRotation.x());
-	matrix4f.rotateY(trainRotation.y());
-	matrix4f.rotateZ(trainRotation.z());
-
-	matrix4f.translate(localPosition.x(), localPosition.y(), localPosition.z());
-
-	let result = matrix4f.getTranslationPart();
-	result.add(trainPosition);
-	return result;
-}
-
-function getTrainMatrix(worldPosition, trainPosition, trainRotation) {
-	let matrix4f = new Matrix4f();
-
-	matrix4f.rotateX(-trainRotation.x());
-	matrix4f.rotateY(-trainRotation.y());
-	matrix4f.rotateZ(-trainRotation.z());
-
-	matrix4f.translate(
-		worldPosition.x() - trainPosition.x(),
-		worldPosition.y() - trainPosition.y(),
-		worldPosition.z() - trainPosition.z()
-	);
-
-	return matrix4f;
-}
-
-function getTrainPosition(worldPosition, trainPosition, trainRotation) {
-	let matrix4f = new Matrix4f();
-
-	matrix4f.rotateX(-trainRotation.x());
-	matrix4f.rotateY(-trainRotation.y());
-	matrix4f.rotateZ(-trainRotation.z());
-
-	matrix4f.translate(
-		trainPosition.x() - worldPosition.x(),
-		trainPosition.y() - worldPosition.y(),
-		trainPosition.z() - worldPosition.z()
-	);
-
-	return matrix4f.getTranslationPart();
-}
-
-function getLengths(pathDatas) {
-	let result = new Array();
-	let length = 0;
-	for (let i = 0; i < pathDatas.length; i++) {
-		result.push((length += pathDatas[i].rail.getLength()));
-	}
-	return result;
-}
-
-function Vector3ftoSrting(Vector3f) {
-	return "(" + Vector3f.x() + "," + Vector3f.y() + "," + Vector3f.z() + ")";
 }

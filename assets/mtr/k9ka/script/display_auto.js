@@ -17,8 +17,6 @@ const color = new Map()
 	.set("Green", new Color(0xc5d863));
 var FontTransform = new AffineTransform();
 FontTransform.scale(0.8, 1);
-var displayMatrices = new Matrices();
-displayMatrices.translate(0, 0.5, 0);
 /* 常量定义 */
 
 /* 贴图定义 */
@@ -579,6 +577,7 @@ function create(ctx, state, train) {
 }
 
 function render(ctx, state, train) {
+	let matrices = state.matrices;
 	if (state.scrollRefresh.shouldUpdate()) {
 		state.scrollClock++;
 		for (let a in state.stationsScrollClock) {
@@ -603,11 +602,11 @@ function render(ctx, state, train) {
 	}
 	for (let i = 0; i < train.trainCars(); i++) {
 		for (let board in state.boardlist) {
-			state.boardlist[board].rawface.drawFace(ctx, i, displayMatrices);
+			state.boardlist[board].rawface.drawFace(ctx, i, matrices);
 		}
 		if (MinecraftClient.getCameraDistance(train.lastCarPosition[i]) < 30) {
-			gridlist[0].rawface.drawFace(ctx, i, displayMatrices);
-			gridlist[1].rawface.drawFace(ctx, i, displayMatrices);
+			gridlist[0].rawface.drawFace(ctx, i, matrices);
+			gridlist[1].rawface.drawFace(ctx, i, matrices);
 		}
 	}
 }
